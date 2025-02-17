@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--List view -->
+    <record id="sh_library_category_list_view" model="ir.ui.view">
+        <field name="name">sh.library.category.list</field>
+        <field name="model">sh.library.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"></field>
+                <field name="total_books"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form view -->
+    <record id="sh_library_category_form_view" model="ir.ui.view">
+        <field name="name">sh.library.category.form</field>
+        <field name="model">sh.library.category</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="description"></field>
+                        <field name="total_books"></field>
+                        <field name="books" widget="many2many_tags">
+                            <list string="Values">
+                                <field name="name"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_library_category_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.library.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

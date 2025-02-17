@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--List view -->
+    <record id="sh_res_partner_list_view" model="ir.ui.view">
+        <field name="name">sh.res.partner.list</field>
+        <field name="model">sh.res.partner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"></field>
+                <field name="city"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form view -->
+    <record id="sh_res_partner_form_view" model="ir.ui.view">
+        <field name="name">sh.res.partner.form</field>
+        <field name="model">sh.res.partner</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="city"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_res_partner_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.res.partner</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="sh_sales_menu" name="sh_sales" sequence="5">
+        <menuitem name="sale order" action="sh_sales_order_action" id="sh_sales_order_menu" sequence="10"/>
+        <menuitem name="res partner" action="sh_res_partner_action" id="sh_res_partner_menu" sequence="15"/>
+        <menuitem name="product" action="sh_product_product_action" id="sh_product_product_menu" sequence="20"/>
+        <menuitem name="taxs" action="sh_account_tax_action" id="sh_account_tax_menu" sequence="25"/>
+        <menuitem name="sale order line" action="sh_sales_order_line_action" id="sh_sales_order_line_menu" sequence="25"/>
+        <!-- <menuitem name="product" action="sh_product_product_action" id="sh_product_product_menu" sequence="30"/> -->
+    </menuitem>
+
+</odoo>

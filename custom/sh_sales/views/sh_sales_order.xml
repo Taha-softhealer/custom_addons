@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--List view -->
+    <record id="sh_sales_order_list_view" model="ir.ui.view">
+        <field name="name">sh.sale.order.list</field>
+        <field name="model">sh.sale.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"></field>
+                <field name="date"></field>
+                <field name="partner_id"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form view -->
+    <record id="sh_sales_order_form_view" model="ir.ui.view">
+        <field name="name">sh.sale.order.form</field>
+        <field name="model">sh.sale.order</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="partner_id"></field>
+                        <field name="date"></field>
+                        <field name="sh_text" />
+                        <field name="tax_percen" />
+                        <field name="order_line_ids">
+                            <list editable="bottom">
+                                <field name="name" column_invisible="1"></field>
+                                <field name="product_id"></field>
+                                <field name="qty"></field>
+                                <field name="price"></field>
+                                <field name="tax_ids" widget="many2many_tags">
+                                    <list>
+                                        <field name="name"></field>
+                                    </list>
+                                </field>
+                                <field name="amount"></field>
+                            </list>
+                        </field>
+                        <!-- <field name="total"></field> -->
+                        <div class="d-flex float-end pe-4 fw-bolder" colspan="2">
+                            <div>
+                                <span class="oe_inline">
+                                    <label for="total" class="me-3 fw-bold"></label>
+                                    <field name="total" class="oe_inline" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex float-end pe-4 fw-bolder" colspan="2">
+                            <div>
+                                <span class="oe_inline">
+                                    <label for="tax_total" class="me-3 fw-bold"></label>
+                                    <field name="tax_total" class="oe_inline" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex float-end pe-4 fw-bolder" colspan="2">
+                            <div class="border-top border-black border-1">
+                                <span class="oe_inline">
+                                    <label for="grand_total" class="me-3 fw-bold"></label>
+                                    <field name="grand_total" class="oe_inline"  />
+                                </span>
+                            </div>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_sales_order_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.sale.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>

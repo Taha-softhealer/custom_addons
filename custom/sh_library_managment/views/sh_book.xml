@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--List view -->
+    <record id="sh_library_book_list_view" model="ir.ui.view">
+        <field name="name">sh.library.book.list</field>
+        <field name="model">sh.library.book</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"></field>
+                <field name="category_id"></field>
+                <!-- <field name="total_book_count"></field> -->
+                <field name="availabele_book_count"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form view -->
+    <record id="sh_library_book_form_view" model="ir.ui.view">
+        <field name="name">sh.library.book.form</field>
+        <field name="model">sh.library.book</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="category_id"></field>
+                        <field name="author"></field>
+                        <field name="isbn"></field>
+                        <field name="published_date"></field>
+                        <field name="availabele_book_count"></field>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_library_book_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="model_name_menu" name="sh_library" sequence="5">
+        <menuitem name="books" action="sh_library_book_action" id="sh_library_book_action_menu" sequence="10"/>
+        <menuitem name="category" action="sh_library_category_action" id="sh_library_category_action_menu" sequence="15"/>
+        <menuitem name="members" action="sh_library_member_action" id="sh_library_member_action_menu" sequence="20"/>
+        <menuitem name="borrowing" action="sh_library_borrowing_action" id="sh_library_borrowing_action_menu" sequence="22"/>
+        <menuitem name="student" action="sh_student_action" id="sh_student_action_menu" sequence="25"/>
+        <menuitem name="student_category" action="sh_category_action" id="sh_category_action_menu" sequence="30"/>
+    </menuitem>
+
+
+</odoo>

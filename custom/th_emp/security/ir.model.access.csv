@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+th_emp.access_sh_employee,access_sh_employee,th_emp.model_sh_employee,base.group_user,1,1,1,1
+th_emp.access_sh_department,access_sh_department,th_emp.model_sh_department,base.group_user,1,1,1,1
+th_emp.access_sh_job,access_sh_job,th_emp.model_sh_job,base.group_user,1,1,1,1
+th_emp.access_sh_resource_calendar,access_sh_resource_calendar,th_emp.model_sh_resource_calendar,base.group_user,1,1,1,1
+th_emp.access_sh_blood_group,access_sh_blood_group,th_emp.model_sh_blood_group,base.group_user,1,1,1,1
+th_emp.access_sh_employee_category,access_sh_employee_category,th_emp.model_sh_employee_category,base.group_user,1,1,1,1
