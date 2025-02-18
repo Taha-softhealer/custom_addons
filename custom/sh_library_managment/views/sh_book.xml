@@ -30,6 +30,11 @@
                         <field name="isbn"></field>
                         <field name="published_date"></field>
                         <field name="availabele_book_count"></field>
+                        <field name="member_ids">
+                            <list>
+                                <field name="name"></field>
+                            </list>
+                        </field>
                     </group>
                 </sheet>
                 <chatter/>

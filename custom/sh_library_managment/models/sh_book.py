@@ -45,12 +45,12 @@ class sh_book(models.Model):
     #         else:
     #             rec.availabele_book_count = 0
 
-    @api.onchange("member_ids")
-    def _member_change(self):
-        if self.availabele_book_count < 0:
-            # for i in self.member_ids:
-            #     print("\n\n\n-----self.member_ids------->", type(i))
-            raise UserError("There is no book left to render member")
+    # @api.onchange("member_ids")
+    # def _member_change(self):
+    #     if self.availabele_book_count < 0:
+    #         # for i in self.member_ids:
+    #         #     print("\n\n\n-----self.member_ids------->", type(i))
+    #         raise UserError("There is no book left to render member")
 
     @api.onchange("name")
     def _onchange_name(self):
@@ -76,10 +76,11 @@ class sh_book(models.Model):
         return rec
 
     def unlink(self):
-        if len(self.member_ids):
-            raise UserError("You can't remove this book it is already assigned!!!")
-        else:
-            return super().unlink()
+        for rec in self:
+            if len(rec.member_ids):
+                raise UserError("You can't remove this book it is already assigned!!!")
+            else:
+                return super().unlink()
 
     # def write(self,vals):
     #     print('\n\n\n-----vals------->',vals)

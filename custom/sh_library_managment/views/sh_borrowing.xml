@@ -26,7 +26,7 @@
                     <group>
                         <field name="name" invisible="1"></field>
                         <field name="member_id"></field>
-                        <field name="book_ids" readonly="state=='borrowed'"></field>
+                        <field name="book_ids"></field>
                         <field name="borrow_date"></field>
                         <field name="return_date"></field>
                         <field name="state"></field>
