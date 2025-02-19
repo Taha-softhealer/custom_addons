@@ -7,7 +7,7 @@
     "description": "basic library management system",
     "category": "Productivity/Employee",
     "website": "https://www.softhealer.com",
-    "depends": ["base_setup", "web", "portal", "mail"],
+    "depends": ["base_setup", "web", "portal", "mail","sale"],
     "data": [
         "security/ir.model.access.csv",
         "views/sh_category.xml",

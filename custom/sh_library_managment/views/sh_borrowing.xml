@@ -22,6 +22,9 @@
         <field name="model">sh.library.borrowing</field>
         <field name="arch" type="xml">
             <form string="xyz">
+                <div class="my-1">
+                    <button type="object" class="btn-primary" name="borrow">borrow</button>
+                </div>
                 <sheet>
                     <group>
                         <field name="name" invisible="1"></field>

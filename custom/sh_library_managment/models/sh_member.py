@@ -11,6 +11,7 @@ class sh_member(models.Model):
     phone = fields.Char(string="phone")
     book_ids = fields.Many2many("sh.library.book", string="books")
     member_type= fields.Char(string="Member Type",compute="_compute_type")
+    total_issued_book=fields.Integer(string="Total issued book",compute="_compute_total_issue")
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -20,6 +21,16 @@ class sh_member(models.Model):
         rec.mid = string
         return rec
 
+
+
+    @api.depends("book_ids")
+    def _compute_total_issue(self):
+        for rec in self:
+            if(len(rec.book_ids)):
+                rec.total_issued_book=len(rec.book_ids)
+            else:
+                rec.total_issued_book=0
+    
     @api.depends("book_ids")
     def _compute_type(self):
         for rec in self:
