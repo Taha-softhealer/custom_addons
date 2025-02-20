@@ -8,7 +8,12 @@
     "category": "Sales",
     "website": "https://www.softhealer.com",
     "depends": ["base_setup", "web", "sale"],
-    "data": ["views/sh_note.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/sh_note.xml",
+        "views/sh_sale_order_inherit.xml",
+        "views/sh_sale_order_line_inherit.xml"
+    ],
     "installable": True,
     "application": True,
 }

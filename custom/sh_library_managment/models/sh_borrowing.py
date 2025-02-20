@@ -18,6 +18,7 @@ class sh_member(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        print('\n\n\n-----self------->',self)
         for vals in vals_list:
             print("\n\n\n-----vals------->", vals)
             if vals.get("state") == "returned":

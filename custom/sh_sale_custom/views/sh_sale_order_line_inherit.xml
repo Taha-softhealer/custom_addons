@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_sales_inherited_form_new" model="ir.ui.view">
+        <field name="name">sh.sales.form.inherited.new</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <!-- <field name="custom_note"></field> -->
+            <field name="product_template_id" position="after">
+                <field name="custom_note"></field>
+            </field>
+            <!-- <xpath expr="//field[@name='product_template_id']" position="after">
+                <field name="custom_note"></field>
+            </xpath> -->
+            <xpath expr="//field[@name='product_template_id']" position="before">
+                <field name="sr_num"></field>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+

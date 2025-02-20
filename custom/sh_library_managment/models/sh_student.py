@@ -58,6 +58,7 @@ class sh_student(models.Model):
             return super(sh_student, self).create(vals)
 
     def write(self, vals):
+        print('\n\n\n-----self------->',self.email)
         if vals.get("email"):
             record = self.search([("email", "=", vals.get("email"))])
             if record:
