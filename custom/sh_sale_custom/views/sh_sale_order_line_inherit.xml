@@ -18,6 +18,26 @@
             </xpath>
         </field>
     </record>
+    <record id="sh_crm_inherited_view" model="ir.ui.view">
+        <field name="name">sh.crm.inherited.view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="name"></field>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <page name="lead" position="after">
+                <page name="sh_page">
+                    <group name="sh_group" string="sh group">
+                        <field name="id"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
 </odoo>
 
 

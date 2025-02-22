@@ -15,6 +15,7 @@
         "views/sh_borrowing.xml",
         "views/sh_student.xml",
         "views/sh_member.xml",
+        "views/sh_search.xml",
         "views/sh_book.xml",
     ],
     "installable": True,

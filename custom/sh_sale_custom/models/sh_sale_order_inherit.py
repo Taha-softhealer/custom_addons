@@ -8,6 +8,14 @@ class sh_sale_order_inherit(models.Model):
     custom_note=fields.Many2many("sh.note",string="Note")
     sh_sr_num=fields.Integer("abcd")
     
+    @api.onchange("partner_id")
+    def _change_note(self):
+        # self.custom_note=self.partner_id.custom_note
+        self.custom_note=[(6, False, [p.id for p in self.partner_id.custom_note])]
+        print('\n\n\n-----self.partner_id.custom_note------->',self.partner_id.custom_note)
+    
+    
+    
     @api.onchange("order_line")
     def __count_sr(self):
         count=0

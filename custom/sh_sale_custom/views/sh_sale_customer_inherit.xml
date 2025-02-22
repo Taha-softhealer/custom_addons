@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_res_partner_inherited_form" model="ir.ui.view">
+        <field name="name">sh.res.partner.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+
+            <!-- <field name="custom_note"></field> -->
+            <field name="l10n_in_pan" position="after">
+                <field name="custom_note" widget="many2many_tags"></field>
+            </field>
+            <!-- <xpath expr="//field[@name='product_template_id']" position="after">
+                <field name="custom_note"></field>
+            </xpath> -->
+            <!-- <xpath expr="//field[@name='product_template_id']" position="before">
+                <field name="sr_num"></field>
+            </xpath> -->
+        </field>
+    </record>
+</odoo>

@@ -55,6 +55,7 @@
         <menuitem name="borrowing" action="sh_library_borrowing_action" id="sh_library_borrowing_action_menu" sequence="22"/>
         <menuitem name="student" action="sh_student_action" id="sh_student_action_menu" sequence="25"/>
         <menuitem name="student_category" action="sh_category_action" id="sh_category_action_menu" sequence="30" />
+        <menuitem name="search" action="sh_search_action" id="sh_search_action_menu" sequence="35" />
     </menuitem>
 
 

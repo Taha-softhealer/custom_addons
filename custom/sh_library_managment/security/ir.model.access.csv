@@ -5,3 +5,4 @@ sh_library_managment.access_sh_library_member,access_sh_library_member,sh_librar
 sh_library_managment.access_sh_student,access_sh_student,sh_library_managment.model_sh_student,base.group_user,1,1,1,1
 sh_library_managment.access_sh_category,access_sh_category,sh_library_managment.model_sh_category,base.group_user,1,1,1,1
 sh_library_managment.access_sh_library_borrowing,access_sh_library_borrowing,sh_library_managment.model_sh_library_borrowing,base.group_user,1,1,1,1
+sh_library_managment.access_sh_search,access_sh_search,sh_library_managment.model_sh_search,base.group_user,1,1,1,1

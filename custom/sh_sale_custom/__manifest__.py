@@ -12,7 +12,8 @@
         "security/ir.model.access.csv",
         "views/sh_note.xml",
         "views/sh_sale_order_inherit.xml",
-        "views/sh_sale_order_line_inherit.xml"
+        "views/sh_sale_order_line_inherit.xml",
+        "views/sh_sale_customer_inherit.xml"
     ],
     "installable": True,
     "application": True,

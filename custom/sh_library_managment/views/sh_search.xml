@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Form view -->
+    <record id="sh_search_form_view" model="ir.ui.view">
+        <field name="name">sh.search.form</field>
+        <field name="model">sh.search</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="select_member"></field>
+                        <field name="select_category"></field>
+                        <field name="enter_number"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_search_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.search</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>
