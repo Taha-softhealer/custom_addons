@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"></field>
+                <field name="user_id"></field>
             </list>
         </field>
     </record>
