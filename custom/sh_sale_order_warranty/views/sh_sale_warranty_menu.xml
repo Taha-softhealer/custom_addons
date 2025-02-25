@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="sh_sale_warranty" name="sale warranty" sequence="30">
+
+        <menuitem id="sh_warrantys" name="Warrantys" action="sh_sale_warranty_action" sequence="10" />
+    </menuitem>
+
+</odoo>

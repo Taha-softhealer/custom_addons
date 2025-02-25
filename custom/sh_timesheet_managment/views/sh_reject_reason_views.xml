@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form view -->
+    <record id="sh_reject_reason_form_view" model="ir.ui.view">
+        <field name="name">sh.reject.reason.form</field>
+        <field name="model">sh.reject.reason</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="user_id"></field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Save" name="save" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_reject_reason_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.reject.reason</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

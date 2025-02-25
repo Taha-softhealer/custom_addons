@@ -2,7 +2,6 @@ from odoo import fields, models, api
 from datetime import datetime
 from odoo.exceptions import UserError  # type: ignore
 
-
 class sh_student(models.Model):
     _name = "sh.student"
     _description = "sudent table"

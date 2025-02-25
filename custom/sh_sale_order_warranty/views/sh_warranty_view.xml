@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--List view -->
+    <record id="sh_sale_warranty_list_view" model="ir.ui.view">
+        <field name="name">sh.sale.warranty.list</field>
+        <field name="model">sh.sale.warranty</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Form view -->
+    <record id="sh_sale_warranty_form_view" model="ir.ui.view">
+        <field name="name">sh.sale.warranty.form</field>
+        <field name="model">sh.sale.warranty</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="order_date"></field>
+                        <field name="warranty_period"></field>
+                        <!-- <field name="warranty_expiry_date"></field> -->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_sale_warranty_form_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.sale.warranty</field>
+        <field name="view_mode">form</field>
+    </record>
+    <record id="sh_sale_warranty_action" model="ir.actions.act_window">
+        <field name="name">name</field>
+        <field name="res_model">sh.sale.warranty</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
