@@ -27,6 +27,8 @@
                         <field name="name"></field>
                         <field name="Active"></field>
                         <field name="count"></field>
+                        <field name="publish_date"></field>
+                        <field name="experience"></field>
                         <field name="department_id"></field>
                         <field name="Address_id"></field>
                         <field name="Employee_ids" widget="one2many_list">

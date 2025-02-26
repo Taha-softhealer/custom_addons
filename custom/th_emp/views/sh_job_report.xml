@@ -1,0 +1,66 @@
+<odoo>
+    <template id="sh_job">
+        <t t-call="web.html_container">
+            <style>
+                .page {
+                    margin-top: 64px;
+                }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <p>
+                                <strong> Name </strong>
+                                <span class="mx-3" t-field="doc.name"></span>
+                            </p>
+                            <p>
+                                <strong> Publication Date </strong>
+                                <span class="mx-3" t-field="doc.publish_date"></span>
+                            </p>
+                            <p>
+                                <strong> Experience level </strong>
+                                <span class="mx-3" t-field="doc.experience"></span>
+                            </p>
+                            <p>
+                                <strong>Employee Count</strong>
+                                <span class="mx-3" t-field="doc.count"></span>
+                            </p>
+                            <p>
+                                <strong>Active</strong>
+                                <span class="mx-3" t-field="doc.Active"></span>
+                            </p>
+                            <p>
+                                <strong>Department</strong>
+                                <span class="mx-3" t-field="doc.department_id"></span>
+                            </p>
+                            <div class="my-3">
+                                <strong>Employees</strong>
+                                <t t-foreach="doc.Employee_ids" t-as="variable">
+                                    <span t-out="variable.name"></span>,
+                                </t>
+                            </div>
+                            <div>
+                                <strong>Favorite Users</strong>
+                                <t t-foreach="doc.favorite_user_ids" t-as="variable">
+                                    <span t-out="variable.name"></span>,
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_sh_job" model="ir.actions.report">
+        <field name="name">Job Report</field>
+        <field name="model">sh.job</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">th_emp.sh_job</field>
+        <field name="report_file">th_emp.sh_job</field>
+        <field name="print_report_name">'%s' % object.name</field>
+        <field name="binding_model_id" ref="model_sh_job"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

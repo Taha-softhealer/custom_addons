@@ -15,6 +15,7 @@
         "views/blood_group.xml",
         "views/category_view.xml",
         "views/employee_category.xml",
+        "views/sh_job_report.xml",
         "views/sh_employee.xml"
     ],
     "installable": True,

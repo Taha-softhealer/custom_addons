@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="custom_field_add" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='informations_date']" position="after">
+            <div t-if="doc.l10n_in_gst_treatment" class="col">
+                <strong>GST Treatment</strong>
+                <div t-out="doc.l10n_in_gst_treatment"/>
+            </div>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']" position="after">
+            <th name="th_sh_field" class="text-end text-nowrap">Line id</th>
+        </xpath>
+        <xpath expr="//td[@name='td_subtotal']" position="after">
+            <td name="td_priceunit" class="text-end text-nowrap">
+                <span t-field="line.id">3</span>
+            </td>
+        </xpath>
+    </template>
+
+
+
+
+
+
+
+</odoo>

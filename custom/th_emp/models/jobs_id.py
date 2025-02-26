@@ -14,6 +14,8 @@ class Jobs(models.Model):
     department_id = fields.Many2one("sh.department", string="Department")
     # Employee_ids = fields.One2many('sh.employee', 'name', string='Employee Ids')
     Employee_ids = fields.One2many("sh.employee", "job_ids", string="Employees")
+    publish_date = fields.Date(string='Published_date')
+    experience = fields.Selection([('intern', 'Intern'),('junior', 'Junior'),('senior', 'Senior')])
     favorite_user_ids = fields.Many2many(
         "res.users", "favorite_user_res_user_rel", string="Favorite user"
     )
