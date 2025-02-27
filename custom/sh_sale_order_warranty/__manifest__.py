@@ -12,6 +12,7 @@
         "security/ir.model.access.csv",
         "views/sh_warranty_view.xml",
         "views/sh_sale_order_inherit.xml",
+        "views/sh_sale_warranty_report.xml",
         "views/sh_sale_warranty_menu.xml",
     ],
     "installable": True,

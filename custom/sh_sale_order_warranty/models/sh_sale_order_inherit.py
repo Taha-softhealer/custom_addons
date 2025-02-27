@@ -28,6 +28,7 @@ class sh_sale_order(models.Model):
                     "name": rec.name,
                     "order_date": rec.date_order,
                     "warranty_period": rec.warranty_period,
+                    "sale_order_id":rec.id
                 }
             )
         return rec
@@ -41,6 +42,7 @@ class sh_sale_order(models.Model):
                     "order_date": values.get("date_order") or self.date_order,
                     "warranty_period": values.get("warranty_period")
                     or self.warranty_period,
+                    "sale_order_id":self.id
                 }
             )
         if values.get("warranty_applicable") == False:

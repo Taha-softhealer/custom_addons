@@ -21,10 +21,11 @@
             <form string="xyz">
                 <sheet>
                     <group>
-                        <field name="name"></field>
+                        <field name="name" invisible="1"></field>
+                        <field name="sale_order_id" readonly="1"></field>
                         <field name="order_date"></field>
                         <field name="warranty_period"></field>
-                        <!-- <field name="warranty_expiry_date"></field> -->
+                        <field name="warranty_expiry_date"></field>
                     </group>
                 </sheet>
             </form>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sh_sale_warranty_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <p>
+                                <strong> Name </strong>
+                                <span class="mx-3" t-field="doc.name"></span>
+                            </p>
+                            <p>
+                                <strong> Publication Date </strong>
+                                <span class="mx-3" t-field="doc.sale_order_id"></span>
+                            </p>
+                            <p>
+                                <strong> Order Date </strong>
+                                <span class="mx-3" t-field="doc.order_date"></span>
+                            </p>
+                            <p>
+                                <strong>Warranty Period</strong>
+                                <span class="mx-3" t-field="doc.warranty_period"></span>
+                            </p>
+                            <p>
+                                <strong>Warranty expiry Date</strong>
+                                <span class="mx-3" t-field="doc.warranty_expiry_date"></span>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_sh_sale_order_warranty" model="ir.actions.report">
+        <field name="name">sale warranty report</field>
+        <field name="model">sh.sale.warranty</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_sale_order_warranty.sh_sale_warranty_report</field>
+        <field name="report_file">sh_sale_order_warranty.sh_sale_warranty_report</field>
+        <field name="print_report_name">'%s' % object.name</field>
+        <field name="binding_model_id" ref="model_sh_sale_warranty"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
