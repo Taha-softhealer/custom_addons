@@ -21,8 +21,8 @@
             <form string="xyz">
                 <header>
                     <button name="submit" type="object" string="Submit" invisible="state != 'draft'"/>
-                    <button name="approve" type="object" string="Approve" invisible="state != 'submitted'"/>
-                    <button name="%(sh_reject_reason_action)d" type="action" string="Reject" invisible="state != 'submitted'"/>
+                    <button name="approve" type="object" string="Approve" groups="sh_timesheet_managment.timesheet_manager" invisible="state != 'submitted'"/>
+                    <button name="%(sh_reject_reason_action)d" type="action" groups="sh_timesheet_managment.timesheet_manager" string="Reject" invisible="state != 'submitted'"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
                 </header>
                 <sheet>

@@ -63,6 +63,11 @@ class sh_member(models.Model):
         if vals.get("state") == "returned":
             self.book_ids.availabele_book_count += 1
             self.book_ids.member_ids = [(3, self.member_id.id)]
+            
+        if vals.get("state") == "borrowed":
+            self.book_ids.availabele_book_count -= 1
+            self.book_ids.member_ids = [(4, self.member_id.id)]
+                        
         result = super(sh_member, self).write(vals)
         return result
 

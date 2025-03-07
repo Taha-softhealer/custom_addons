@@ -14,7 +14,6 @@ class sh_reject_reason(models.TransientModel):
         res["name"] = "Default Name"
         # if "user_id" in fields:
         res["user_id"] = self.env.uid
-        res["taha"]=""
         print('\n\n\n-----res------->',res)
 
 

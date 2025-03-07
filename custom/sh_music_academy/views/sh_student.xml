@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_student_view_list" model="ir.ui.view">
+        <field name="name">sh.student.view.tree</field>
+        <field name="model">sh.student</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"></field>
+            </list>
+        </field>
+    </record>
+
+    <record id="sh_student_view_form" model="ir.ui.view">
+        <field name="name">sh.student.view.form</field>
+        <field name="model">sh.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="image_1920" widget='image' class="oe_avatar"/>
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field name="name"></field>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="gender"></field>
+                            <field name="language"></field>
+                            <field name="birthdate"></field>
+                        </group>
+                        <group>
+                            <field name="visa_info"></field>
+                            <field name="blood_group"></field>
+                        </group>
+                    </group>
+                    <group string="Address Details">
+                        <group>
+                            <span class="o_form_label o_td_label o_address_type" name="address_name">
+                                <span>Address</span>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street" />
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"   on_change="1" can_create="True" can_write="True"/>
+                                <div name="partner_address_country" class="d-flex justify-content-between">
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" can_create="True" can_write="True"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="phone"></field>
+                            <field name="mobile"></field>
+                            <field name="email"></field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_student_action" model="ir.actions.act_window">
+        <field name="name">student</field>
+        <field name="res_model">sh.student</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

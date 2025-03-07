@@ -9,6 +9,7 @@
     "website": "https://www.softhealer.com",
     "depends": ["base_setup", "web", "portal", "mail","sale"],
     "data": [
+        "security/sh_library_security.xml",
         "security/ir.model.access.csv",
         "views/sh_category.xml",
         "views/sh_student_category.xml",

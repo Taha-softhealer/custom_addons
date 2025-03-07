@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="sh_library_security_menu">
+        <field name="name">Library Management</field>
+    </record>
+    <record model="ir.module.category" id="sh_library_security">
+        <field name="name">Library</field>
+        <field name="description">
+        Library security
+        </field>
+        <field name="parent_id" ref="sh_library_security_menu"/>
+    </record>
+
+    <record id="library_member" model="res.groups">
+        <field name="name">member</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="sh_library_security"/>
+    </record>
+
+    <record id="library_staff" model="res.groups">
+        <field name="name">staff</field>
+        <field name="implied_ids" eval="[(4, ref('library_member'))]"/>
+        <field name="category_id" ref="sh_library_security"/>
+    </record>
+
+    <record id="library_manager" model="res.groups">
+        <field name="name">manager</field>
+        <field name="implied_ids" eval="[(4, ref('library_staff'))]"/>
+        <field name="category_id" ref="sh_library_security"/>
+    </record>
+
+</odoo>

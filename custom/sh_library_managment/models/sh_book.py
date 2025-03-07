@@ -26,7 +26,7 @@ class sh_book(models.Model):
     )
     author = fields.Char(string="Author")
     isbn = fields.Integer(string="isbn")
-    published_date=fields.Date(string="published_date")
+    published_date = fields.Date(string="published_date")
     category_id = fields.Many2one("sh.library.category", string="category")
     member_ids = fields.Many2many("sh.library.member", string="member")
     # state = fields.Selection(
@@ -61,11 +61,12 @@ class sh_book(models.Model):
             for rec in ls:
                 string = rec
                 compute_id = self.env["sh.library.category"].search_read(
-                    domain=[("name", "ilike", string)]
+                    domain=[("name", "ilike", string)], limit=1
                 )
-                for rec in compute_id:
-                    if string.lower() == rec["name"].lower():
-                        self.category_id = rec["id"]
+                print("\n\n\n-----compute_id------->", compute_id)
+                if compute_id:
+                    rec = compute_id[0]
+                    self.category_id = rec["id"]
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -93,6 +94,6 @@ class sh_book(models.Model):
     #         self.state = "available"
     #     else:
     #         self.state = "borrowed"
-            # if self.availabele_book_count<0:
-            #     raise UserError("There is no book left to render member")
-            # raise UserError("There is no book left to render member")
+    # if self.availabele_book_count<0:
+    #     raise UserError("There is no book left to render member")
+    # raise UserError("There is no book left to render member")

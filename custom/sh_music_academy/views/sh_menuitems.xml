@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="sh_music_menu" name="sh music" web_icon="sh_music_academy,static/description/music_8872492.png" sequence="5">
+    <menuitem
+        id="sh_student_menu"
+        name="student"
+        action="sh_student_action"
+        sequence="10" />
+    </menuitem>
+
+</odoo>

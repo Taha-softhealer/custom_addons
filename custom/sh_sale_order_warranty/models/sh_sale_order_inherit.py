@@ -11,13 +11,20 @@ class sh_sale_order(models.Model):
     warranty_expiry_date = fields.Date(
         string="warranty expiry date", compute="_compute_warranty_expiry_date"
     )
-    # name=fields.Char(string="warranty")
-    # sale_order_id = fields.Many2one('sale.order', string='sale_order')
 
     @api.onchange("warranty_period")
     def onchange_warranty_period(self):
         if (self.warranty_period) < 6:
-            raise UserError("warranty period is less than 6 months")
+            warning = {
+                "warning": {
+                    "title": (
+                        "Warranty period is not sufficient"
+                    ),
+                    "message": ("warranty period is less than 6 months."),
+                }
+            }
+            return warning
+            # raise UserError("warranty period is less than 6 months")
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -28,7 +35,7 @@ class sh_sale_order(models.Model):
                     "name": rec.name,
                     "order_date": rec.date_order,
                     "warranty_period": rec.warranty_period,
-                    "sale_order_id":rec.id
+                    "sale_order_id": rec.id,
                 }
             )
         return rec
@@ -36,33 +43,25 @@ class sh_sale_order(models.Model):
     def write(self, values):
         temp = self.env["sh.sale.warranty"].search([("name", "=", self.name)])
         if values.get("warranty_applicable") == True:
-            temp = self.env["sh.sale.warranty"].create(
+            self.env["sh.sale.warranty"].create(
                 {
                     "name": self.name,
                     "order_date": values.get("date_order") or self.date_order,
                     "warranty_period": values.get("warranty_period")
                     or self.warranty_period,
-                    "sale_order_id":self.id
+                    "sale_order_id": self.id,
                 }
             )
         if values.get("warranty_applicable") == False:
             temp.unlink()
             print("\n\n\n-hahaha---------hahaha->")
         if values.get("date_order"):
-            temp.write(
-                {
-                    "order_date": values.get("date_order"),
-                    "warranty_expiry_date": values.get("warranty_expiry_date"),
-                }
-            )
+            temp.order_date = values.get("date_order")
+            temp.warranty_expiry_date = values.get("warranty_expiry_date")
 
         if values.get("warranty_period"):
-            temp.write(
-                {
-                    "warranty_period": values.get("warranty_period"),
-                    "warranty_expiry_date": values.get("warranty_expiry_date"),
-                }
-            )
+            temp.warranty_period = values.get("warranty_period")
+            temp.warranty_expiry_date = values.get("warranty_expiry_date")
 
         res = super().write(values)
         return res
@@ -93,5 +92,5 @@ class sh_sale_order(models.Model):
             "view_mode": "form",
             "res_id": record.id,
         }
-        print('\n\n\n-----disc["domain"]------->',disc["res_id"])
+        print('\n\n\n-----disc["domain"]------->', disc["res_id"])
         return disc

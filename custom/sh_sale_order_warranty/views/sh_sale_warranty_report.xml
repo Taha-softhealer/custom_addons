@@ -11,10 +11,6 @@
                                 <span class="mx-3" t-field="doc.name"></span>
                             </p>
                             <p>
-                                <strong> Publication Date </strong>
-                                <span class="mx-3" t-field="doc.sale_order_id"></span>
-                            </p>
-                            <p>
                                 <strong> Order Date </strong>
                                 <span class="mx-3" t-field="doc.order_date"></span>
                             </p>
@@ -32,6 +28,7 @@
             </t>
         </t>
     </template>
+
 
     <record id="action_sh_sale_order_warranty" model="ir.actions.report">
         <field name="name">sale warranty report</field>
