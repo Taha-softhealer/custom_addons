@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"></field>
+                <field name="manager_id"></field>
             </list>
         </field>
     </record>
@@ -22,6 +23,7 @@
                 <sheet>
                     <group>
                         <field name="name"></field>
+                        <field name="manager_id"></field>
                     </group>
                 </sheet>
             </form>
@@ -38,6 +40,7 @@
         <menuitem name="Tags" action="sh_tag_action" id="sh_tag_menu" sequence="10"/>
         <menuitem name="Task" action="sh_task_action" id="sh_task_menu" sequence="15"/>
         <menuitem name="Timesheet" action="sh_timesheet_action" id="sh_timesheet_menu" sequence="20"/>
+        <menuitem name="manager" action="sh_manager_action" id="sh_manager_menu" sequence="25"/>
     </menuitem>
 
 

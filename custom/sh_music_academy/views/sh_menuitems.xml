@@ -2,11 +2,8 @@
 <odoo>
 
     <menuitem id="sh_music_menu" name="sh music" web_icon="sh_music_academy,static/description/music_8872492.png" sequence="5">
-    <menuitem
-        id="sh_student_menu"
-        name="student"
-        action="sh_student_action"
-        sequence="10" />
+        <menuitem id="sh_student_menu" name="student" action="sh_student_action" sequence="10" />
+        <!-- <menuitem id="sh_setting_menu" name="setting" action="sh_music_school_config_action" sequence="15" /> -->
     </menuitem>
 
 </odoo>

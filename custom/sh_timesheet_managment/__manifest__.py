@@ -13,6 +13,7 @@
         "security/ir.model.access.csv",
         "views/sh_res_user_inherit.xml",
         "views/sh_reject_reason_views.xml",
+        "views/sh_manager.xml",
         "views/sh_timesheet_view.xml",
         "views/sh_task_view.xml",
         "views/sh_tag_view.xml",
