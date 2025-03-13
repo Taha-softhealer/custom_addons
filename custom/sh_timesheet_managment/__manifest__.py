@@ -7,11 +7,10 @@
     "description": "basic timesheet managment system",
     "category": "Timesheet",
     "website": "https://www.softhealer.com",
-    "depends": ["base_setup", "web","mail"],
+    "depends": ["base_setup", "web", "mail"],
     "data": [
         "security/sh_timesheet_security.xml",
         "security/ir.model.access.csv",
-        "views/sh_res_user_inherit.xml",
         "views/sh_reject_reason_views.xml",
         "views/sh_manager.xml",
         "views/sh_timesheet_view.xml",

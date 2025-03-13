@@ -16,6 +16,25 @@
     </record>
 
 
+    <record id="view_sh_library_book_search" model="ir.ui.view">
+        <field name="name">sh.library.book.search</field>
+        <field name="model">sh.library.book</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search>
+                <field name="author"/>                <!--  -->
+                <field name="name" string="Order"/>
+                <field name="category_id"/>
+                <filter string="My books" domain="[('create_uid', '=', uid)]" name="my_sale_orders_filter"/>
+                <group expand="0" string="Group By">
+                    <filter string="catogery" name="salesperson" domain="[]" context="{'group_by': 'category_id'}"/>
+                    <!-- <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/> -->
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- Form view -->
     <record id="sh_library_book_form_view" model="ir.ui.view">
         <field name="name">sh.library.book.form</field>

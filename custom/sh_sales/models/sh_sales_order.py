@@ -15,7 +15,7 @@ class sh_sales_order(models.Model):
     )
     total = fields.Float(string="Total:", compute="_cal_total")
     tax_total = fields.Float(string="Total Tax:", compute="_cal_tax_total")
-    grand_total = fields.Float(string="Grand Total:", compute="_cal_grand_total")
+    grand_total = fields.Float(string="Grand Total:",store=True , compute="_cal_grand_total")
     sh_text=fields.Json(string="text")
     tax_percen=fields.Char("tex")
 

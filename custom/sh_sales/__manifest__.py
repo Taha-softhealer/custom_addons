@@ -15,6 +15,7 @@
         "views/sh_sales_order.xml",
         "views/sh_sales_order_line.xml",
         "views/sh_res_partner.xml",
+        "views/sh_sale_report.xml"
     ],
     "installable": True,
     "application": True,

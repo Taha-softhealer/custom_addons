@@ -1,0 +1,87 @@
+<odoo>
+    <template id="sh_sale_order_report">
+        <t t-call="web.html_container">
+            <style>
+                .page {
+                    margin-top: 64px;
+                }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <p>
+                                <strong> Order Id </strong>
+                                <span class="mx-3" t-field="doc.name"></span>
+                            </p>
+                            <p>
+                                <strong> Customer </strong>
+                                <span class="mx-3" t-field="doc.partner_id.name"></span>
+                            </p>
+                            <p>
+                                <strong> Order Date </strong>
+                                <span class="mx-3" t-field="doc.date"></span>
+                            </p>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th class="fw-bolder">Product</th>
+                                        <th class="fw-bolder">Quantity</th>
+                                        <th class="fw-bolder">Price</th>
+                                        <th class="fw-bolder">Taxs</th>
+                                        <th class="fw-bolder">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.order_line_ids" t-as="order_line">
+                                        <td t-out="order_line.product_id.name"></td>
+                                        <td t-out="order_line.qty"></td>
+                                        <td t-out="order_line.price"></td>
+                                        <td>
+                                            <span t-foreach="order_line.tax_ids" t-as="percentage">
+                                                <span t-out="percentage.name"></span> 
+                                            </span>
+                                        </td>
+                                        <td t-out="order_line.amount"></td>
+                                    </tr>
+                                    <tr class="border-0">
+                                        <td colspan="3" class="border-0"></td>
+                                        <td class="text-start border-top border-start-0  border-end-0">
+                                            <strong> Total </strong>
+                                        </td>
+                                        <td class="fw-bolder border-top border-start-0  border-end-0" t-out="doc.total"></td>
+                                    </tr>
+                                    <tr class="border-0">
+                                        <td colspan="3" class="border-0"></td>
+                                        <td class="text-start border-0">
+                                            <strong> Tax Total </strong>
+                                        </td>
+                                        <td class="border-0" t-out="doc.tax_total"></td>
+                                    </tr>
+                                    <tr class="border-0">
+                                        <td colspan="3" class="border-0"></td>
+                                        <td class="text-start border-top border-start-0  border-end-0">
+                                            <strong> Grand Total </strong>
+                                        </td>
+                                        <td class="fw-bolder border-top border-start-0  border-end-0" t-out="doc.grand_total"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_sh_sale_order_report" model="ir.actions.report">
+        <field name="name">sale order Report</field>
+        <field name="model">sh.sale.order</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">sh_sales.sh_sale_order_report</field>
+        <field name="report_file">sh_sales.sh_sale_report</field>
+        <field name="print_report_name">'%s' % object.name</field>
+        <field name="binding_model_id" ref="model_sh_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

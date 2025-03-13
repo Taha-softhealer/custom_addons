@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 from odoo.exceptions import UserError  # type: ignore
+from odoo.exceptions import ValidationError
 
 
 SALE_ORDER_STATE = [
@@ -21,7 +22,6 @@ class sh_book(models.Model):
     )
     name = fields.Char(
         string="Name",
-        required=True,
         tracking=True,
     )
     author = fields.Char(string="Author")
@@ -29,6 +29,15 @@ class sh_book(models.Model):
     published_date = fields.Date(string="published_date")
     category_id = fields.Many2one("sh.library.category", string="category")
     member_ids = fields.Many2many("sh.library.member", string="member")
+
+    _sql_constraints = [
+        (
+            "check_name_not_null",
+            "CHECK(name IS NOT NULL)",
+            "book can not be create without name",
+        ),
+    ]
+
     # state = fields.Selection(
     #     selection=SALE_ORDER_STATE,
     #     string="Status",
@@ -51,6 +60,13 @@ class sh_book(models.Model):
     #         # for i in self.member_ids:
     #         #     print("\n\n\n-----self.member_ids------->", type(i))
     #         raise UserError("There is no book left to render member")
+
+    @api.constrains("availabele_book_count")
+    def validate_availabele_book_count(self):
+        print('\n\n\n---constrain called-----------constrain called->')
+        for record in self:
+            if record.availabele_book_count <= 0:
+                raise ValidationError("Please set a strictly positive rounding value.")
 
     @api.onchange("name")
     def _onchange_name(self):

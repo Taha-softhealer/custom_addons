@@ -14,6 +14,30 @@
         </field>
     </record>
 
+    <!-- graph -->
+    <record id="sh_sale_order_graph" model="ir.ui.view">
+        <field name="name">sh.sale.order.graph</field>
+        <field name="model">sh.sale.order</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Analysis" type="line" sample="1">
+                <field name="partner_id"/>
+                <field name="grand_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- pivot -->
+    <record id="sh_sale_order_pivot" model="ir.ui.view">
+        <field name="name">sh.sale.order.graph.pivot</field>
+        <field name="model">sh.sale.order</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoices Analysis" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="grand_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
 
     <!-- Form view -->
     <record id="sh_sales_order_form_view" model="ir.ui.view">
@@ -26,8 +50,8 @@
                         <field name="name"></field>
                         <field name="partner_id"></field>
                         <field name="date"></field>
-                        <field name="sh_text" />
-                        <field name="tax_percen" />
+                        <!-- <field name="sh_text" />
+                        <field name="tax_percen" /> -->
                         <field name="order_line_ids">
                             <list editable="bottom">
                                 <field name="name" column_invisible="1"></field>
@@ -63,7 +87,7 @@
                             <div class="border-top border-black border-1">
                                 <span class="oe_inline">
                                     <label for="grand_total" class="me-3 fw-bold"></label>
-                                    <field name="grand_total" class="oe_inline"  />
+                                    <field name="grand_total" class="oe_inline" />
                                 </span>
                             </div>
                         </div>
@@ -76,7 +100,7 @@
     <record id="sh_sales_order_action" model="ir.actions.act_window">
         <field name="name">name</field>
         <field name="res_model">sh.sale.order</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,graph,pivot</field>
     </record>
 
 
