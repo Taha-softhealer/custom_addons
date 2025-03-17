@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="sh_support_ticket_menu" name="sh support ticket" sequence="1">
+        <menuitem id="sh_support_ticket_model_menu" name="support tickets" action="sh_support_ticket_action" sequence="2"></menuitem>
+    </menuitem>
+</odoo>
