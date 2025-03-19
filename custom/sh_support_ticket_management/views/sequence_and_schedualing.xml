@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_support_ticket" model="ir.sequence">
+        <field name="name">support ticket</field>
+        <field name="code">sh.support.ticket</field>
+        <field name="prefix">TCE</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="ir_cron_close_ticket" model="ir.cron">
+        <field name="name">Close Ticket in resloved state every 7 days</field>
+        <field name="model_id" ref="model_sh_support_ticket"/>
+        <field name="state">code</field>
+        <field name="code">model.close_ticket()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="priority">1</field>
+    </record>
+</odoo>

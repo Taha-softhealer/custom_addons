@@ -6,19 +6,69 @@
         <field name="model">sh.support.ticket</field>
         <field name="arch" type="xml">
             <list string="support tickets">
+                <header>
+                    <button name="%(sh_batch_update_action)d" type="action" string="button"/>
+                </header>
                 <field name="name"/>
+                <field name="state"/>
+                <field name="customers"></field>
+                <field name="assigned_developer"/>
+                <field name="priority"/>
             </list>
         </field>
     </record>
 
-    <record id="seq_support_ticket" model="ir.sequence">
-        <field name="name">support ticket</field>
-        <field name="code">sh.support.ticket</field>
-        <field name="prefix">TCE</field>
-        <field name="padding">5</field>
-        <field name="company_id" eval="False"/>
+    <record id="sh_support_ticket_pivot_view" model="ir.ui.view">
+        <field name="name">sh.support.ticket.pivot.view</field>
+        <field name="model">sh.support.ticket</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoices Analysis" sample="1">
+                <field name="assigned_developer" type="row"/>
+                <field name="name"/>
+            </pivot>
+        </field>
     </record>
 
+    <record id="sh_support_ticket_calender_view" model="ir.ui.view">
+        <field name="name">sh.support.ticket.calender.view</field>
+        <field name="model">sh.support.ticket</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="support ticket" create="0" date_start="date" mode="month" hide_time="true" event_limit="5">
+                <field name="name"/>
+                <field name="assigned_developer"/>
+                <field name="priority"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="sh_support_ticket_view_activity" model="ir.ui.view">
+        <field name="name">sh.support.ticket.activity</field>
+        <field name="model">sh.support.ticket</field>
+        <field name="arch" type="xml">
+            <activity string="Leads or Opportunities">
+                <field name="name"/>
+                <field name="assigned_developer"/>
+                <templates>
+                    <div t-name="activity-box">
+                        <field name="name"/>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-around">
+                                <div>
+                                    <field name="customers" display="full" class="o_text_block o_text_bold"/>
+                                    <field name="assigned_developer" muted="1" display="full"/>
+                                </div>
+                                <div>
+                                    <field name="state" widget="badge"/>
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </activity>
+        </field>
+    </record>
 
     <!-- <record id="sh_support_ticket_form" model="ir.ui.view">
         <field name="name">sh.support.ticket.form</field>
@@ -30,20 +80,69 @@
         </field>
     </record> -->
 
+    <record id="sh_support_ticket_search_view" model="ir.ui.view">
+        <field name="name">sh.support.ticket.search</field>
+        <field name="model">sh.support.ticket</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search>
+                <field name="customers"/>
+                <field name="date"/>
+                <field name="name" />
+                <field name="assigned_developer" />
+                <field name="priority"/>
+                <filter string="High Priority" domain="[('priority', '=', 'High')]" name="high_priority_filter"/>
+                <group expand="0" string="Group By">
+                    <filter string="state" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                    <!-- <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/> -->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="sh_support_ticket_kanban_view" model="ir.ui.view">
+        <field name="name">sh.support.ticket.kanban</field>
+        <field name="model">sh.support.ticket</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="state">
+                <templates>
+                    <t t-name="card">
+                        <div class="row">
+                            <div class="col-8">
+                                <field class="fw-bolder" name="name"/>
+                            </div>
+                            <div class="col-8">
+                                <field name="state"/>
+                            </div>
+                            <div class="col-4 text-end">
+                                <field name="assigned_developer"/>
+                            </div>
+                        </div>
+                        <div>
+                            <field name="priority" widget="priority"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
+
     <record id="sh_support_ticket_form" model="ir.ui.view">
         <field name="name">sh.support.ticket.form</field>
         <field name="model">sh.support.ticket</field>
         <field name="arch" type="xml">
             <form string="xyz">
+                <header>
+                    <button string="Close" name="close" type="object" class="oe_highlight" groups="sh_support_ticket_management.support_ticket_leader" invisible="state == 'close'"/>
+                    <button string="resolve" name="resolved" type="object" class="oe_highlight" invisible="state == 'close'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,in progress,resolved"/>
+                </header>
                 <sheet>
                     <div name="button_box">
-                        <button string="Task" icon="fa-tasks">
-                            <div class="o_stat_info">
-                                <span class="o_stat_value">
-                                </span>
-                                customer
-                            </div>
-                        </button>
                         <button string="Task" icon="fa-tasks">
                             <div class="o_stat_info">
                                 <span class="o_stat_value">
@@ -57,18 +156,34 @@
                         <field name="customers"></field>
                         <field name="priority" widget="priority"></field>
                         <field name="assigned_developer"></field>
-                        <field name="state"></field>
-                        <field name="leadership_rating" widget="priority"></field>
+                        <field name="leadership_rating" widget="priority" groups="sh_support_ticket_management.support_ticket_leader"></field>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
+    <record id="sh_view_partner_form" model="ir.ui.view">
+        <field name="name">sh.view.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button string="Tickets" icon="fa-tasks" type="object" name="tickets_count">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                        </span>
+                                Tickets
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
     <record id="sh_support_ticket_action" model="ir.actions.act_window">
         <field name="name">name</field>
         <field name="res_model">sh.support.ticket</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,kanban,pivot,calendar,activity</field>
     </record>
 
 </odoo>

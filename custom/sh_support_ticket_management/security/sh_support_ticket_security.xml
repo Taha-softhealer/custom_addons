@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="support_ticket_main">
+        <field name="name">Support Ticket</field>
+        <field name="description">
+        Support Ticket management
+        </field>
+    </record>
+    <record model="ir.module.category" id="support_ticket">
+        <field name="name">Support Ticket</field>
+        <field name="description">
+        Support Ticket
+        </field>
+        <field name="parent_id" ref="support_ticket_main"/>
+    </record>
+
+    <record id="support_ticket_developer" model="res.groups">
+        <field name="name">Developer</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="support_ticket"/>
+    </record>
+
+    <record id="support_ticket_leader" model="res.groups">
+        <field name="name">Support Leader</field>
+        <field name="implied_ids" eval="[(4, ref('support_ticket_developer'))]"/>
+        <field name="category_id" ref="support_ticket"/>
+    </record>
+
+
+    <record id="sh_support_ticket_developer" model="ir.rule">
+        <field name="name">sh support ticket modle rule developer</field>
+        <field name="model_id" ref="sh_support_ticket_management.model_sh_support_ticket"/>
+        <field name="groups" eval="[(4, ref('support_ticket_developer'))]"/>
+        <field name="domain_force">[("assigned_developer",'=', user.id)]</field>
+    </record>
+
+    <record id="sh_support_ticket_model_rule_leader" model="ir.rule">
+        <field name="name">sh support ticket modle rule leader</field>
+        <field name="model_id" ref="sh_support_ticket_management.model_sh_support_ticket"/>
+        <field name="groups" eval="[(4, ref('support_ticket_leader'))]"/>
+        <field name="domain_force">[(1,'=', 1)]</field>
+    </record>
+
+</odoo>
