@@ -19,7 +19,7 @@
         </field>
     </record>
 
-    <record id="sh_batch_update_action" model="ir.actions.act_window">
+        <record id="sh_batch_update_action" model="ir.actions.act_window">
         <field name="name">name</field>
         <field name="res_model">sh.batch.update</field>
         <field name="view_mode">form</field>

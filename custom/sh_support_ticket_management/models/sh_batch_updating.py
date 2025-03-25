@@ -12,6 +12,7 @@ class BatchUpdating(models.TransientModel):
             ("in progress", "In progress"),
             ("resolved", "Resolved"),
             ("close", "Close"),
+            ("cancle", "Cancle"),
         ]
     )
 

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- list -->
     <record id="sh_support_ticket_list" model="ir.ui.view">
         <field name="name">sh.support.ticket.list</field>
         <field name="model">sh.support.ticket</field>
         <field name="arch" type="xml">
             <list string="support tickets">
-                <header>
-                    <button name="%(sh_batch_update_action)d" type="action" string="button"/>
-                </header>
                 <field name="name"/>
                 <field name="state"/>
                 <field name="customers"></field>
@@ -18,6 +16,7 @@
         </field>
     </record>
 
+    <!-- pivot -->
     <record id="sh_support_ticket_pivot_view" model="ir.ui.view">
         <field name="name">sh.support.ticket.pivot.view</field>
         <field name="model">sh.support.ticket</field>
@@ -29,6 +28,7 @@
         </field>
     </record>
 
+    <!-- calendar -->
     <record id="sh_support_ticket_calender_view" model="ir.ui.view">
         <field name="name">sh.support.ticket.calender.view</field>
         <field name="model">sh.support.ticket</field>
@@ -42,6 +42,7 @@
         </field>
     </record>
 
+    <!-- activity -->
     <record id="sh_support_ticket_view_activity" model="ir.ui.view">
         <field name="name">sh.support.ticket.activity</field>
         <field name="model">sh.support.ticket</field>
@@ -60,7 +61,7 @@
                                 </div>
                                 <div>
                                     <field name="state" widget="badge"/>
-                                    <field name="priority" widget="priority"/>
+                                    <field name="priority" />
                                 </div>
                             </div>
                         </div>
@@ -70,16 +71,7 @@
         </field>
     </record>
 
-    <!-- <record id="sh_support_ticket_form" model="ir.ui.view">
-        <field name="name">sh.support.ticket.form</field>
-        <field name="model">sh.support.ticket</field>
-        <field name="arch" type="xml">
-            <form string="support tickets">
-                <field name="name"/>
-            </form>
-        </field>
-    </record> -->
-
+    <!-- search -->
     <record id="sh_support_ticket_search_view" model="ir.ui.view">
         <field name="name">sh.support.ticket.search</field>
         <field name="model">sh.support.ticket</field>
@@ -101,6 +93,7 @@
         </field>
     </record>
 
+    <!-- kanban -->
     <record id="sh_support_ticket_kanban_view" model="ir.ui.view">
         <field name="name">sh.support.ticket.kanban</field>
         <field name="model">sh.support.ticket</field>
@@ -120,7 +113,7 @@
                             </div>
                         </div>
                         <div>
-                            <field name="priority" widget="priority"/>
+                            <field name="priority"/>
                         </div>
                     </t>
                 </templates>
@@ -130,20 +123,22 @@
 
 
 
-
+    <!-- form -->
     <record id="sh_support_ticket_form" model="ir.ui.view">
         <field name="name">sh.support.ticket.form</field>
         <field name="model">sh.support.ticket</field>
         <field name="arch" type="xml">
             <form string="xyz">
                 <header>
-                    <button string="Close" name="close" type="object" class="oe_highlight" groups="sh_support_ticket_management.support_ticket_leader" invisible="state == 'close'"/>
-                    <button string="resolve" name="resolved" type="object" class="oe_highlight" invisible="state == 'close'"/>
+                    <button string="in progress" name="in_progress" type="object" invisible="state in ('in progress','cancle','close')"/>
+                    <button string="resolved" name="resolved" type="object" invisible="state in ('resolved','cancle','close')"/>
+                    <button string="Close" name="close" type="object" class="oe_highlight" groups="sh_support_ticket_management.support_ticket_leader" invisible="state in ('close','cancle')"/>
+                    <button string="cancle" name="cancle" type="object" class="oe_highlight" groups="sh_support_ticket_management.support_ticket_leader" invisible="state in ('close','cancle')"/>
                     <field name="state" widget="statusbar" statusbar_visible="open,in progress,resolved"/>
                 </header>
                 <sheet>
-                    <div name="button_box">
-                        <button string="Task" icon="fa-tasks">
+                    <div name="button_box" invisible="state != 'close'">
+                        <button string="Task" icon="fa-tasks" name="invoice" type="object">
                             <div class="o_stat_info">
                                 <span class="o_stat_value">
                                 </span>
@@ -153,9 +148,10 @@
                     </div>
                     <group>
                         <field name="name"></field>
+                        <field name="date"></field>
                         <field name="customers"></field>
-                        <field name="priority" widget="priority"></field>
                         <field name="assigned_developer"></field>
+                        <field name="priority"></field>
                         <field name="leadership_rating" widget="priority" groups="sh_support_ticket_management.support_ticket_leader"></field>
                     </group>
                 </sheet>
@@ -163,6 +159,7 @@
         </field>
     </record>
 
+    <!-- customer view -->
     <record id="sh_view_partner_form" model="ir.ui.view">
         <field name="name">sh.view.partner.form</field>
         <field name="model">res.partner</field>
@@ -177,6 +174,20 @@
                     </div>
                 </button>
             </div>
+        </field>
+    </record>
+
+    <!-- server action -->
+    <record id="model_batch_update" model="ir.actions.server">
+        <field name="name">State Update</field>
+        <field name="model_id" ref="sh_support_ticket_management.model_sh_support_ticket"/>
+        <field name="sequence">1</field>
+        <field name="binding_model_id" ref="sh_support_ticket_management.model_sh_support_ticket"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action=records.open_batch_update()
         </field>
     </record>
 

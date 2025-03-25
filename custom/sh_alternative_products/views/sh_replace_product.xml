@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form view -->
+    <record id="sh_replace_product_form_view" model="ir.ui.view">
+        <field name="name">sh.replace.product.form</field>
+        <field name="model">sh.replace.product</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="replaceing_product_id" domain="[('id', 'in', alternative_products_ids)]" options="{'no_open': True, 'no_create': True}"></field>
+                        <field name="alternative_products_ids"></field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Replace" name="replace_product" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="sh_replace_product_action" model="ir.actions.act_window">
+        <field name="name">Replace Products</field>
+        <field name="res_model">sh.replace.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'active_id':active_id}</field>
+    </record> -->
+</odoo>

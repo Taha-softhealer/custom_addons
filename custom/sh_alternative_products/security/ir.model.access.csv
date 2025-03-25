@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sh_alternative_products.access_sh_replace_product,access_sh_replace_product,sh_alternative_products.model_sh_replace_product,base.group_user,1,1,1,1

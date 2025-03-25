@@ -50,6 +50,8 @@
                         <field name="name"></field>
                         <field name="partner_id"></field>
                         <field name="date"></field>
+                        <field name="company_id"></field>
+                        <field name="company_data"></field>
                         <!-- <field name="sh_text" />
                         <field name="tax_percen" /> -->
                         <field name="order_line_ids">

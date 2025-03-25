@@ -13,6 +13,8 @@ class sh_sales_order(models.Model):
     order_line_ids = fields.One2many(
         "sh.sale.order.line", "sale_order_id", string="order"
     )
+    company_id=fields.Many2one("res.company",default=lambda self: self.env.company)
+    company_data=fields.Char(company_dependent=True)
     total = fields.Float(string="Total:", compute="_cal_total")
     tax_total = fields.Float(string="Total Tax:", compute="_cal_tax_total")
     grand_total = fields.Float(string="Grand Total:",store=True , compute="_cal_grand_total")
