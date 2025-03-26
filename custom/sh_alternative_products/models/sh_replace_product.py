@@ -1,6 +1,7 @@
 from odoo import fields, models, api
 from odoo.exceptions import UserError  # type: ignore
 
+
 class sh_replace_product(models.TransientModel):
     _name = "sh.replace.product"
     _description = "replace product reason"
@@ -27,7 +28,7 @@ class sh_replace_product(models.TransientModel):
         "product.product",
         string="Replaceing Product",
     )
-    alternative_products_ids = fields.Many2many("product.product")
+    alternative_products_ids = fields.Many2many("product.product", readonly=True)
 
     def replace_product(self):
         active_model = self.env.context["active_model"]
@@ -38,17 +39,7 @@ class sh_replace_product(models.TransientModel):
             "\n\n\n-----record.product_template_id------->", record.product_template_id
         )
         if self.replaceing_product_id:
-            # print("\n\n\n----inside if------->",record)
-
-            # print("\n\n\n----product_template_id------->", record.product_template_id)
-            # print(
-            #     "\n\n\n----self.replaceing_product_id.id------->",
-            #     self.replaceing_product_id.id,
-            # )
-            # record.product_template_id = [(5,)]
-            record.product_id=self.replaceing_product_id.id
+            record.product_id = self.replaceing_product_id.id
             print("\n\n\n----product_template_id------->", record.product_template_id)
-            # record.product_template_id = [(4,self.replaceing_product_id.id)]
         else:
             raise UserError("please select product to replace")
-        # print('\n\n\n-----record.product_template_id------->',record.product_template_id)

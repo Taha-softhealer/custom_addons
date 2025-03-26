@@ -22,11 +22,4 @@
         </field>
     </record>
 
-    <!-- <record id="sh_replace_product_action" model="ir.actions.act_window">
-        <field name="name">Replace Products</field>
-        <field name="res_model">sh.replace.product</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="context">{'active_id':active_id}</field>
-    </record> -->
 </odoo>

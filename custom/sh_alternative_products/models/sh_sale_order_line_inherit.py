@@ -19,11 +19,3 @@ class sh_sale_order_line_inherit(models.Model):
             "target":"new"
         }
         return disc
-        # print('\n\n\n-----disc["domain"]------->', disc["res_id"])
-
-
-    # @api.model_create_multi
-    # def write(self, vals):
-    #     print('\n\n\n-----values------->',vals)
-    #     res = super().write(vals)
-    #     return res

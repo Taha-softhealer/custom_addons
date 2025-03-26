@@ -9,41 +9,40 @@ class product_product_inherit(models.Model):
     )
 
     def write(self, vals):
-            print("\n\n\n-----self.------->", self.alternative_products_ids.ids)
-            if vals.get("alternative_products_ids"):
-                print(
-                    '\n\n\n-----vals["alternative_products_ids"]------->',
-                    vals["alternative_products_ids"],
-                )
-                res_ls = []
-                res_ls.append(self.id)
-                for rec in vals["alternative_products_ids"]:
-                    res_ls.append(rec[1])
-
-                print("\n\n\n-----res_ls------->", res_ls)
-                # temp_ls=res_ls.copy()
-
-                for rec in vals["alternative_products_ids"]:
+        if vals.get("alternative_products_ids"):
+            for rec in vals["alternative_products_ids"]:
+                if rec[0] == 3:
                     record = self.env["product.product"].browse(rec[1])
-                    record.alternative_products_ids = [
-                        (6, False, [p for p in res_ls if p != rec[1]])
-                    ]
-                    # ------------------------
-                    # record.alternative_products_ids=[(6,False,res_ls(rec[1]))]
-                    # temp_ls=res_ls.copy()
+                    super().write({'alternative_products_ids':[(3,record.id)]})
+                    if self.id in record.alternative_products_ids.ids:
+                        record.write({
+                            'alternative_products_ids': [(3, self.id)]
+                        })
+                    
+                        
 
-                # if(len(vals["alternative_products_ids"])==1):
-                #     record=self.env["product.template"].browse(vals["alternative_products_ids"][0][1])
-                #     record.alternative_products_ids=[(6,False,[self.id])]
+                if rec[0]==4:
+                    print(
+                        '\n\n\n-----vals["alternative_products_ids"]------->',
+                        vals["alternative_products_ids"],
+                    )
+                    res_ls = []
+                    res_ls.append(self.id)
+                    for recs in vals["alternative_products_ids"]:
+                        if recs[0]==4:
+                            res_ls.append(recs[1])
+                    
+                    if(self.alternative_products_ids):
+                        for i in self.alternative_products_ids.ids:
+                            res_ls.append(i)
 
-                # for product_out in vals['alternative_products_ids']:
-                #     for product_in in vals['alternative_products_ids']:
-                #         if(product_out==product_in):
-                #             print('\n\n\n----inside that in==out------->')
-                #         else:
-                #             record=self.env["product.template"].browse(product_out[1])
-                #             record.alternative_products_ids=[(6,False,[self.id,product_in[1]])]
-
+                
+                    for rec in vals["alternative_products_ids"]:
+                        record = self.env["product.product"].browse(rec[1])
+                        record.alternative_products_ids = [
+                            (6, False, [p for p in res_ls if p != rec[1]])
+                        ]
+            
             rec = super().write(vals)
             return rec
 
