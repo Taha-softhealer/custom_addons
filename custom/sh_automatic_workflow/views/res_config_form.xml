@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_res_config_inherit_sh_automatic_workflow" model="ir.ui.view">
+        <field name="name">res.config.setting.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='connectors_setting_container']" position="after">
+                <block title="Automatic Workflow" id="sh_automatic_workflow">
+                    <setting id="sh_automatic_workflow_setting" help="Automatic sales workflow">
+                        <field name="enable_automatic_workflow" widget="upgrade_boolean"/>
+                    </setting>
+                    <setting id="sh_automatic_workflow_default_setting" invisible="not enable_automatic_workflow">
+                        <field name="automatic_workflow_id"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+    <menuitem id="sh_automatic_workflow_menuitem" name="Automatic Sales Wrokflow" action="sh_automatic_workflow_action" parent="sale.menu_sale_config" />
+</odoo>
