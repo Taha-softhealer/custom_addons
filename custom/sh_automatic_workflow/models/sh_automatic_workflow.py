@@ -13,10 +13,22 @@ class sh_automatic_workflow(models.Model):
     register_payment = fields.Boolean(string='Register Payment')
     send_invo_by_email = fields.Boolean(string='Send Invoice By Email')
 
-    # sale journal
-    # payment journal
-    # payment method
-    # company
+    sale_journal_id = fields.Many2one(
+        'account.journal',
+        string='Sale Journal',
+        )
+    payment_journal_id = fields.Many2one(
+        'account.journal',
+        string='Payment Journal',
+        )
+    payment_method_id = fields.Many2one(
+        'account.journal',
+        string='Payment Method',
+        )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        )
     
     @api.constrains("force_transfer")
     def check_force_transfer(self):

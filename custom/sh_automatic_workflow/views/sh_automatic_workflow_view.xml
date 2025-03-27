@@ -29,12 +29,20 @@
                 <sheet>
                     <group>
                         <field name="name"></field>
-                        <field name="delivery_order"></field>
-                        <field name="force_transfer" invisible="not delivery_order"></field>
-                        <field name="create_invoice" invisible="not force_transfer"></field>
-                        <field name="validate_invoice" invisible="not create_invoice"></field>
-                        <field name="register_payment" invisible="not validate_invoice"></field>
-                        <field name="send_invo_by_email" invisible="not register_payment"></field>
+                        <group string="Workflow Option">
+                            <field name="delivery_order"></field>
+                            <field name="force_transfer" invisible="not delivery_order"></field>
+                            <field name="create_invoice"></field>
+                            <field name="validate_invoice" invisible="not create_invoice"></field>
+                            <field name="register_payment" invisible="not validate_invoice or not create_invoice"></field>
+                            <field name="send_invo_by_email" invisible="not register_payment"></field>
+                        </group>
+                        <group>
+                            <field name="sale_journal_id" domain="[('type','=','sale')]" invisible="create_invoice=='False'" required="create_invoice=='True'"></field>
+                            <field name="payment_journal_id" domain="[('type','in',('bank','cash'))]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field>
+                            <!-- <field name="payment_method_id" domain="[('payment_type','=','inbound')]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field> -->
+                            <field name="company_id" required='True'></field>
+                        </group>
                     </group>
                 </sheet>
             </form>
