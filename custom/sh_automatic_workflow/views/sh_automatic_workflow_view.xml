@@ -8,7 +8,6 @@
             <list>
                 <field name="name"></field>
                 <field name="delivery_order" widget="boolean_toggle"></field>
-                <field name="force_transfer" widget="boolean_toggle"></field>
                 <field name="create_invoice" widget="boolean_toggle"></field>
                 <field name="validate_invoice" widget="boolean_toggle"></field>
                 <field name="register_payment" widget="boolean_toggle"></field>
@@ -31,7 +30,6 @@
                         <field name="name"></field>
                         <group string="Workflow Option">
                             <field name="delivery_order"></field>
-                            <field name="force_transfer" invisible="not delivery_order"></field>
                             <field name="create_invoice"></field>
                             <field name="validate_invoice" invisible="not create_invoice"></field>
                             <field name="register_payment" invisible="not validate_invoice or not create_invoice"></field>
@@ -40,7 +38,7 @@
                         <group>
                             <field name="sale_journal_id" domain="[('type','=','sale')]" invisible="create_invoice=='False'" required="create_invoice=='True'"></field>
                             <field name="payment_journal_id" domain="[('type','in',('bank','cash'))]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field>
-                            <!-- <field name="payment_method_id" domain="[('payment_type','=','inbound')]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field> -->
+                            <field name="sh_payment_method_id" domain="[('payment_type','=','inbound')]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field>
                             <field name="company_id" required='True'></field>
                         </group>
                     </group>
