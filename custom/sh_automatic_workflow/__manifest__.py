@@ -13,7 +13,8 @@
         "security/sh_automatic_workflow_security.xml",
         "views/sh_automatic_workflow_view.xml",
         "views/res_config_form.xml",
-        "views/sale_order_inherit.xml"
+        "views/sale_order_inherit.xml",
+        "views/res_partner_inherit.xml"
     ],
     "installable": True,
     "application": True,

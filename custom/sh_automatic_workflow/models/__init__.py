@@ -4,3 +4,4 @@
 from . import sh_automatic_workflow
 from . import res_config_setting
 from . import sale_order_inherit
+from . import res_partner_inherit
