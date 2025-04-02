@@ -36,9 +36,9 @@
                             <field name="send_invo_by_email" invisible="not register_payment"></field>
                         </group>
                         <group>
-                            <field name="sale_journal_id" domain="[('type','=','sale')]" invisible="create_invoice=='False'" required="create_invoice=='True'"></field>
-                            <field name="payment_journal_id" domain="[('type','in',('bank','cash'))]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field>
-                            <field name="sh_payment_method_id" domain="[('payment_type','=','inbound')]" required="create_invoice=='True' and validate_invoice=='True' and register_payment=='True'" invisible="create_invoice=='False' and validate_invoice=='False' and register_payment=='False'"></field>
+                            <field name="sale_journal_id" invisible="create_invoice==False" required="create_invoice==True"></field>
+                            <field name="payment_journal_id" required="create_invoice==True and validate_invoice==True and register_payment==True" invisible="create_invoice==False or validate_invoice==False or register_payment==False"></field>
+                            <field name="sh_payment_method_id" required="create_invoice==True and validate_invoice==True and register_payment==True" invisible="create_invoice==False and validate_invoice==False and register_payment==False"></field>
                             <field name="company_id" required='True'></field>
                         </group>
                     </group>
@@ -48,7 +48,7 @@
     </record>
 
     <record id="sh_automatic_workflow_action" model="ir.actions.act_window">
-        <field name="name">sh.automatic.workflow.action</field>
+        <field name="name">Automatic Workflow</field>
         <field name="res_model">sh.automatic.workflow</field>
         <field name="view_mode">list,form</field>
     </record>

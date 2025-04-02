@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_sales_inherited_line_new" model="ir.ui.view">
+        <field name="name">sh.sales.line.inherited.new</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']" position="after">
+                <page name="order_history" string="Order History">
+                <button name="all_line_order" type="object" string="All Lines Reorder"/>
+                    <field name="sh_sale_order_line_ids">
+                        <list editable="bottom">
+                            <field name="line_reorder" readonly='False'></field>
+                            <field name="order_id"></field>
+                            <field name="order_date"></field>
+                            <field name="product_id"></field>
+                            <field name="pricelist_item_id"></field>
+                            <field name="price_unit"></field>
+                            <field name="product_uom_qty"></field>
+                            <field name="discount"></field>
+                            <field name="price_subtotal"></field>
+                            <field name="product_uom"></field>
+                            <field name="state"></field>
+                            <button class="fa fa-retweet" name="re_order" type="object" invisible="not enable_reorder">
+                            </button>
+                            <button class="fa fa-eye" name="open_order" type="object">
+                            </button>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

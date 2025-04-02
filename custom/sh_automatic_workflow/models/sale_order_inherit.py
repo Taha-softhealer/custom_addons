@@ -8,7 +8,6 @@ class sh_sale_order_inherit(models.Model):
     def default_get(self, fields):
         res = super(sh_sale_order_inherit, self).default_get(fields)
 
-        # Get context values
         res_enable = (
             self.env["ir.config_parameter"]
             .sudo()
@@ -73,8 +72,10 @@ class sh_sale_order_inherit(models.Model):
                     invoice_created.action_post()
 
                     if self.automatic_workflow_id.send_invo_by_email:
-                        invoice_created.action_invoice_sent()
-                        invoice_created.action_send_and_print()
+                        mail_rec=self.env['account.move.send.wizard'].create({'move_id':invoice_created.id})
+                        mail_rec.action_send_and_print()
+                        # invoice_created.action_invoice_sent()
+                        # invoice_created.action_send_and_print()
 
                     if self.automatic_workflow_id.register_payment:
                         return (

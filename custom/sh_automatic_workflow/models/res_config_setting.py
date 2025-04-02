@@ -23,9 +23,6 @@ class res_config_setting_inherit(models.TransientModel):
         group = self.env.ref(
             "sh_automatic_workflow.group_automatic_workflow", raise_if_not_found=False
         )
-        print('\n\n\n-----group------->',group)
-        print('\n\n\n--------self.ena---->',self.enable_automatic_workflow)
-        print('\n\n\n--------self.automatic_workflow_id---->',self.automatic_workflow_id)
         if group:
             if self.enable_automatic_workflow:
                 group.users = [(6, 0, self.env["res.users"].search([]).ids)]
