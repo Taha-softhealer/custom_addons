@@ -11,7 +11,7 @@ class sh_sale_order(models.Model):
     _description = "Sale order "
 
     name = fields.Char(string="Name")
-    sh_sale_order_line_ids = fields.Many2many("sale.order.line")
+    sh_sale_order_line_ids = fields.One2many("sale.order.line", "sh_sale_order_id")
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -74,6 +74,7 @@ class sh_sale_order_line(models.Model):
     _inherit = "sale.order.line"
     _description = "Sale order "
 
+    sh_sale_order_id = fields.Many2one("sale.order")
     order_date = fields.Datetime(string="Order Date", related="order_id.date_order")
     line_reorder = fields.Boolean(readonly=False)
     enable_reorder = fields.Boolean(related="company_id.enable_reorder")
@@ -90,11 +91,7 @@ class sh_sale_order_line(models.Model):
         return disc
 
     def re_order(self):
-        print(
-            '\n\n\n-----self.env.context.get("params")------->',
-            self.env.context.get("params"),
-        )
-        if "params" not in self.env.context or "resId" not in self.env.context.get("params"):
+        if not self.sh_sale_order_id:
             self.env["bus.bus"]._sendone(
                 self.env.user.partner_id,
                 "simple_notification",
@@ -104,16 +101,14 @@ class sh_sale_order_line(models.Model):
                     "message": "Please save your changes first",
                 },
             )
-            print("\n\n\n-----self.env.context------->", self.env.context)
         else:
-            current_id = self.env.context.get("params").get("resId")
             self.create(
                 {
                     "product_id": self.product_id.id,
                     "product_uom_qty": self.product_uom_qty,
                     "product_uom": self.product_uom.id,
                     "price_unit": self.price_unit,
-                    "order_id": current_id,
+                    "order_id": self.sh_sale_order_id.id,
                     "name": self.product_id.name,
                 }
             )

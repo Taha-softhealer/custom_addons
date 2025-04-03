@@ -21,7 +21,7 @@
                             <field name="discount"></field>
                             <field name="price_subtotal"></field>
                             <field name="product_uom"></field>
-                            <field name="state"></field>
+                            <field name="state" widget="badge" decoration-success="state == 'sale'" decoration-info="state == 'draft'" decoration-primary="state == 'sent'"></field>
                             <button class="fa fa-retweet" name="re_order" type="object" invisible="not enable_reorder">
                             </button>
                             <button class="fa fa-eye" name="open_order" type="object">
