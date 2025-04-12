@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">sh.purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+                <div class="d-flex">
+                    <div>
+                        <label for="search_by_vendor" string="Search Vendor Wise"/>
+                        <field name="search_by_vendor"/>
+                    </div>
+                    <div>
+                        <label for="search_input" string="Search"/>
+                        <field name="search_input"/>
+                    </div>
+                    <div>
+                        <label for="search_by_filter" string="Filter"/>
+                        <field name="search_by_filter"/>
+                    </div>
+                    <div class="d-flex h-25 w-100">
+                        <button name="test" type="object" string="Load Products" class="btn btn-secondary m-1"/>
+                        <button name="test" type="object" string="Add to Products" class="btn btn-primary m-1"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="res_config_settings_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="calendar.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='sync_google_calendar_setting']" position="after">
+                <setting id="meeting_auto_timesheet" help="Automatically create timesheet directly from calender meeting">
+                    <field name="group_enable_meeting_timesheet" widget="upgrade_boolean"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
     <record id="sh_view_calendar_event_form_inherit" model="ir.ui.view">
         <field name="name">sh.view.calendar.event.inherit.form</field>
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='alarm_ids']" position="after">
-                <field name="sh_project_id"></field>
-                <field name="sh_task_id" domain="[('project_id','=',sh_project_id)]"></field>
+                <field name="sh_project_id" groups="sh_meeting_auto_timesheet.group_meeting_timesheet"></field>
+                <field name="sh_task_id" domain="[('project_id','=',sh_project_id)]" groups="sh_meeting_auto_timesheet.group_meeting_timesheet"></field>
             </xpath>
             <xpath expr="//page[@name='page_invitations']" position="after">
-                <page name="sh_timesheets" string="Timesheets">
+                <page name="sh_timesheets" string="Timesheets" groups="sh_meeting_auto_timesheet.group_meeting_timesheet">
                     <field name="sh_timesheet_ids">
-                        <!-- <list>
-                            <field name="date"></field>
-                            <field name="project_id"></field>
-                            <field name="task_id"></field>
-                            <field name="partner_id"></field>
-                            <field name="name"></field>
-                            <field name="unit_amount"></field>
-                        </list>  -->
                     </field>
                 </page>
             </xpath>

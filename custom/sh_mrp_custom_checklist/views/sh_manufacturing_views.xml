@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_manufacturing_order_list_inherit" model="ir.ui.view">
+        <field name="name">sh.manufacturing.order.list.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="progress" widget="progressbar" groups="sh_mrp_custom_checklist.group_custom_checklist"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sh_manufacturing_order_kanban_inherit" model="ir.ui.view">
+        <field name="name">sh.manufacturing.order.kanban.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//footer[@class='text-muted']" position="before">
+                <div class="d-flex" groups="sh_mrp_custom_checklist.group_custom_checklist">
+                    <field name="progress" widget="percentpie"/>
+                    <span>Checklist</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sh_manufacturing_order_search_inherit" model="ir.ui.view">
+        <field name="name">sh.manufacturing.order.search.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_exception']" position="after">
+                <filter string="Complete checklist" domain="[('progress', '=', 100)]" name="complete_checklist" groups="sh_mrp_custom_checklist.group_custom_checklist"/>
+                <filter string="Uncomplete checklist" domain="[('progress', '!=', 100)]" name="uncomplete_checklist" groups="sh_mrp_custom_checklist.group_custom_checklist"/>
+            </xpath>
+        </field>
+    </record>
+
+    <template id="sh_mrp_manufacuring_report_inherit" name="sh_manufacturing_report_inherit" inherit_id="mrp.report_mrporder">
+        <xpath expr="//div[@t-if='o.move_raw_ids']" position="after">
+            <div class="text-center fs-3 w-full" style="background: #d1ecf1" groups="sh_mrp_custom_checklist.group_custom_checklist">Checklist</div>
+            <div groups="sh_mrp_custom_checklist.group_custom_checklist">
+                <span class="fw-bolder">Completed Checklist:</span>
+                <span>
+                    <span t-out="o.progress"></span> %
+                </span>
+            </div>
+            <table class="table" groups="sh_mrp_custom_checklist.group_custom_checklist">
+                <thead>
+                    <tr>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr t-foreach="o.checklist_ids" t-as="checklist_line">
+                    <td class="text-center" t-out="checklist_line.checklist_id.name"></td>
+                    <td class="text-center" t-out="checklist_line.description"></td>
+                    <td class="text-center" t-out="checklist_line.date"></td>
+                    <td class="text-center" t-out="checklist_line.state"></td>
+                </tr>
+                </tbody>
+            </table>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form view -->
+    <record id="sh_import_checklist_form_view" model="ir.ui.view">
+        <field name="name">sh.import.checklist.form</field>
+        <field name="model">sh.import.checklist</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name" invisible='True'></field>
+                        <field name="import_file_type" widget="radio"></field>
+                        <field name="company_id"></field>
+                        <field name="file"/>
+                        <p class="text-danger-emphasis">*Do not change the header of the sample file and add you data after the header in sample file.</p>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Apply" name="process_file" type="object" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                    <span class="fw-bolder"> Download Sample:</span>
+                    <a role="button" class="btn btn-primary" href="/sh_mrp_custom_checklist/static/src/data/import_mrp_cl_csv.csv">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <span>CSV file</span>
+                    </a>
+                    <a role="button" class="btn btn-primary" href="/sh_mrp_custom_checklist/static/src/data/import_mrp_cl_excel.xls">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <span>Excel file</span>
+                    </a>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_import_checklist_action" model="ir.actions.act_window">
+        <field name="name">Import Checklist</field>
+        <field name="res_model">sh.import.checklist</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

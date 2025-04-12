@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="sh_manufacturing_menu"
+        name="Manufacturing Custom Checklist"
+        action="sh_manufacturing_checklist_action"
+        parent="mrp.menu_mrp_configuration"
+        groups="sh_mrp_custom_checklist.group_custom_checklist"
+        sequence="5" />
+
+    <menuitem
+        id="sh_manufacturing_template_menu"
+        name="Manufacturing Custom Checklist Template"
+        action="sh_manufacturing_checklist_template_action"
+        parent="mrp.menu_mrp_configuration"
+        groups="sh_mrp_custom_checklist.group_custom_checklist"
+        sequence="10" />
+    
+    <menuitem
+        id="sh_import_checklist_menu"
+        name="Import Manufacturing Custom Checklist"
+        action="sh_import_checklist_action"
+        parent="mrp.menu_mrp_configuration"
+        groups="sh_mrp_custom_checklist.group_custom_checklist"
+        sequence="10" />
+
+</odoo>

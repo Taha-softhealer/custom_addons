@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_manufacturing_checklist_line_list" model="ir.ui.view">
+        <field name="name">sh.manufacturing.checklist.line.list</field>
+        <field name="model">sh.manufacturing.checklist.line</field>
+        <field name="arch" type="xml">
+            <list string="order list">
+                <field name="name"/>
+                <field name="checklist_id"/>
+                <field name="sh_manufacture_id"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

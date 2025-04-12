@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.mrp.production.form.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='miscellaneous']" position="after">
+                <page name="checklist" string="Checklist" groups="sh_mrp_custom_checklist.group_custom_checklist">
+                    <group>
+                        <field name="progress" widget="percentpie"/>
+                        <field name="checklist_template_ids" widget="many2many_tags"/>
+                    </group>
+                    <field name="checklist_ids">
+                        <list editable="bottom">
+                            <field name="checklist_id"></field>
+                            <!-- <field name="name"></field> -->
+                            <field name="description"></field>
+                            <field name="date"></field>
+                            <field name="state" widget="badge" decoration-success="state == 'completed'" decoration-danger="state == 'cancle'"></field>
+                            <button name="do_complete" string="Complete" type="object" icon="fa-check" invisible="state=='completed'">
+                            </button>
+                            <button name="do_cancle" type="object" string="Cancle" icon="fa-times" invisible="state=='cancle'">
+                                
+                            </button>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

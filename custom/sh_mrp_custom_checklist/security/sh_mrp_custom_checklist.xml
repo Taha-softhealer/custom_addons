@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+    <record id="group_custom_checklist" model="res.groups">
+        <field name="name">MRP custom Checklist</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="sh_mrp_checklist_company" model="ir.rule">
+        <field name="name">sh mrp checklist company </field>
+        <field name="model_id" ref="sh_mrp_custom_checklist.model_sh_manufacturing_checklist"/>
+        <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        <field name="domain_force">[("company_id",'in',company_ids)]</field>
+    </record>
+
+    <record id="sh_mrp_checklist_template_company" model="ir.rule">
+        <field name="name">sh mrp checklist template company </field>
+        <field name="model_id" ref="sh_mrp_custom_checklist.model_sh_manufacturing_checklist_template"/>
+        <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+        <field name="domain_force">[("company_id",'in',company_ids)]</field>
+    </record>
+
+</odoo>

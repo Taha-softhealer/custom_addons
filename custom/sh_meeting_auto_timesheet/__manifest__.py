@@ -7,8 +7,11 @@
     "description": "Meeting auto timesheet generation",
     "category": "Timesheet",
     "website": "https://www.softhealer.com",
-    "depends": ["base_setup", "web", "mail", "calendar", "hr", "project"],
-    "data": ["views/sh_calender_inherit.xml"],
+    "depends": ["base_setup", "web", "mail", "calendar", "hr", "project","timesheet_grid"],
+    "data": [
+        "security/sh_meeting_auto_timesheet_security.xml",
+        "views/sh_calender_inherit.xml",
+    ],
     "installable": True,
     "application": True,
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--List view -->
+    <record id="sh_manufacturing_checklist_template_list_view" model="ir.ui.view">
+        <field name="name">sh.manufacturing.checklist.template.list</field>
+        <field name="model">sh.manufacturing.checklist.template</field>
+        <field name="arch" type="xml">
+            <list>
+            
+                <field name="sequence" widget="handle"></field>
+                <field name="name"></field>
+                <field name="checklist_ids" widget="many2many_tags"></field>
+                <field name="company_id"></field>
+            </list>
+        </field>
+    </record>
+
+    <!-- search view -->
+    <record id="sh_manufacturing_checklist_template_search" model="ir.ui.view">
+        <field name="name">sh.manufacturing.checklist.template.search</field>
+        <field name="model">sh.manufacturing.checklist.template</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <search>
+                <!-- <filter string="My books" domain="[('create_uid', '=', uid)]" name="my_sale_orders_filter"/> -->
+                <group expand="0" string="Group By">
+                    <filter string="checklist Template" name="checklist_goup" domain="[]" context="{'group_by': 'checklist_ids'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="sh_manufacturing_checklist_template_form_view" model="ir.ui.view">
+        <field name="name">sh.manufacturing.checklist.template.form</field>
+        <field name="model">sh.manufacturing.checklist.template</field>
+        <field name="arch" type="xml">
+            <form string="xyz">
+                <sheet>
+                    <group>
+                        <field name="name"></field>
+                        <field name="checklist_ids" widget="many2many_tags"></field>
+                        <field name="company_id"></field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_manufacturing_checklist_template_action" model="ir.actions.act_window">
+        <field name="name">Manufacturing Checklist Template</field>
+        <field name="res_model">sh.manufacturing.checklist.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
