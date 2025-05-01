@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="sh_reporting_wizard_view_form" model="ir.ui.view">
+			<field name="name">sh.reporting.form</field>
+			<field name="model">sh.reporting</field>
+			<field name="arch" type="xml">
+				<form >
+					<sheet>
+                        <group >
+                            
+                       
+                      	<group>
+							<field name="start_date" ></field>
+							<field name="lesson_id" />
+					  	</group>
+				        <group >                         
+                            <field name="end_date"></field>
+							<field name="attendance" />
+                            
+                        </group>
+                    </group>
+						
+					</sheet>
+					<footer>
+						
+						<button name="action_send" string="Print" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+        <record id="sh_reporting_wizard_action" model="ir.actions.act_window">
+			<field name="name">Report </field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">sh.reporting</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="sh_reporting_wizard_view_form"/>
+			<field name="target">new</field>
+			
+		</record>
+
+      
+
+	</data>
+</odoo>

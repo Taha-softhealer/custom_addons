@@ -16,7 +16,7 @@
         "sale_management",
         "account"
     ],
-    "data": ["views/sh_purchase_inherit.xml"],
+    "data": ["views/sh_purchase_inherit.xml","security/ir.model.access.csv"],
     "installable": True,
     "application": True,
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_class_lesson_line_view_form" model="ir.ui.view">
+        <field name="name">sh.class.lesson.line.view.form</field>
+        <field name="model">sh.class.lesson.line</field>
+        <field name="arch" type="xml">
+            <form string="">
+
+                <header>
+                    <button string="Mass Attendance" class="oe_highlight" name="action_student_attendance_present" type="object" groups="sh_music_school.group_teacher" invisible="state in ['draft','completed','cancelled','fulfilled'] or is_mass_attendance == True or is_present_absent_attendance == True "/>
+                    <button string="Start Lesson" name="action_state_started" type="object" class="oe_stat_button" invisible="state in ['started','completed','cancelled','fulfilled']"/>
+                    <button string="Complete Lesson" name="action_state_completed" type="object" class="oe_stat_button" invisible="state in ['draft','completed','cancelled','fulfilled'] "/>
+                    <button string="Cancelled Lesson" name="action_state_cancelled" type="object" class="oe_stat_button" invisible="state in ['completed','cancelled','fulfilled']"/>
+                    <button string="Fulfilled" name="action_fulfilled" type="object" class="oe_stat_button" invisible="state in ['draft','started','cancelled','fulfilled']" />
+                    <button string="Reset to draft" name="action_state_reset_to_draft" type="object" class="oe_stat_button" invisible="state in ['draft','started','completed','fulfilled']" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="lesson_id" readonly="1" />
+                            <field name="class_id" readonly="1"/>
+                            <label for="start_time" string="Time" />
+                            <div class="o_row">
+                                <field name="start_time" readonly="1" required="1" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'end_time'}"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="end_time" readonly="1" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'start_time'}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="service_id" readonly="1"/>
+                            <field name="instrument_id" invisible="1"/>
+                            <field name="teacher_id" readonly="1"/>
+                            <field name="student_ids" widget="many2many_tags" readonly="1"/>
+                            <field name="is_mass_attendance" invisible="1"/>
+                            <field name="is_present_absent_attendance" invisible="1" />
+                            
+                          
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="attendance" string="Attendance">
+                            <field name="attendance_ids" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="student_id"/>
+                                    <field name="lesson_id" />
+                                    <field name="start_time" />
+                                    <field name="end_time" />
+                                    <field name="student_attendance" decoration-success="student_attendance == 'present'" decoration-danger="student_attendance == 'absent'" class="fw-bold"/>
+                                    <button name="present_button" string="PRESENT" type="object" class="oe_highlight" invisible="parent.state in ('draft','completed','cancelled') or sh_is_button_click == True or parent.is_mass_attendance == True "/>
+                                    <button name="absent_button" string="ABSENT" type="object" class="oe_highlight" invisible="parent.state in ('draft','completed','cancelled') or sh_is_button_click == True or parent.is_mass_attendance == True "/>
+                                    <field name="class_lesson_line_id" column_invisible="1"/>
+                                    <field name="sh_is_button_click" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_class_lesson_line_view_tree" model="ir.ui.view">
+        <field name="name">sh.class.lesson.line.view.tree</field>
+        <field name="model">sh.class.lesson.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="lesson_id" readonly="0"/>
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="teacher_id" />
+                <field name="attendance_ids" widget="many2many_tags"/>
+                <field name="class_id" optional="hide"/>
+                <field name="service_id" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

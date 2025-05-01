@@ -1,0 +1,11 @@
+<odoo>
+
+    <record id="product_product_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('detailed_type','=','service')]</field>
+
+    </record>
+
+</odoo>

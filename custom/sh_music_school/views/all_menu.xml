@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem 
+        id="sh_music_school_menu"
+        name="Music School"
+        web_icon="sh_music_school,static/description/icon.png"
+        groups="sh_music_school.group_student">
+        <menuitem name="Classes" id="sh_school_classes_menu"  sequence="1" action='sh_school_classes_action'/>
+        <menuitem name="Student Attendance" id="sh_school_attendance_menu"  sequence="2" action='sh_school_attendance_action'/>
+        <menuitem name="Reporting" id="sh_reporting_menu"  sequence="3">
+            <menuitem name="Generate Report" id="sh_generate_reporting_menu"  sequence="3" action='sh_reporting_wizard_action'/>
+        </menuitem>
+        <menuitem name="Configuration" id="sh_configuration_menu" sequence="4">
+            <menuitem name="Settings" id="sh_settings_menu" sequence="1" action="sh_music_school_config_action" groups="sh_music_school.group_school_admin"/>
+            <menuitem name="Student" id="sh_school_student_menu" sequence="2" action='sh_school_student_action'/>
+            <menuitem name="Equipment" action='maintenance.hr_equipment_action' id="sh_equipment_menu" sequence="3" groups="sh_music_school.group_school_admin" />
+            <menuitem name="Teacher" action='hr_employee_action' id="menu_hr_employee" sequence="4" groups="sh_music_school.group_teacher" />
+            <menuitem name="Services" action='product_product_action' id="sh_school_services_menu" sequence="5" groups="sh_music_school.group_school_admin" />
+            <menuitem name="Lessons" id="sh_school_lessons_menu" sequence="6" action='sh_school_lessons_action'/>
+        </menuitem>   
+    </menuitem>
+</odoo>

@@ -26,6 +26,26 @@
                     </div>
                 </div>
             </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
+                <page name="load_product_list" string="Load Product List">
+                    <button string="Add selected Lines" name="add_selected_lines" type="object" class="oe_highlight">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span>Add selected Lines</span>
+                    </button>
+                    <field name="sh_purchase_order_line_ids">
+                        <list editable="bottom">
+                            <field name="product_id"></field>
+                            <field name="description"></field>
+                            <field name="sh_cost"></field>
+                            <field name="sh_unit_price"></field>
+                            <field name="sh_on_hand"></field>
+                            <field name="sh_forcast_qty"></field>
+                            <button name="single_product" type="object" class="fa fa-shopping-cart"/>
+                            <field name="sh_multi_add"></field>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
         </field>
     </record>
 

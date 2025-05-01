@@ -1,0 +1,148 @@
+<odoo>
+
+    <!-- Form view -->
+
+    <record id='sh__school_attendance_form_view' model='ir.ui.view'>
+        <field name='name'>sh.school.attendanceform.view</field>
+        <field name='model'>sh.school.attendance</field>
+        <field name='arch' type='xml'>
+            <form string="Students">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id" required="1" />
+                            <field name="lesson_id" required="1"/>
+                            <label for="start_time" string="Period"/>
+                            <div class="o_row">
+                                <field name="start_time" required="1" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'end_time'}"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="end_time" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'start_time'}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="teacher_id" />
+                            <field name="student_attendance" required="1" decoration-success="student_attendance == 'present'" decoration-danger="student_attendance == 'absent'" class="fw-bold"/>
+                            
+                            <field name="instrument_id" readonly="1" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree View-->
+
+    <record id='sh_school_attendance_tree_view' model='ir.ui.view'>
+        <field name='name'>sh.school.attendance.tree.view</field>
+        <field name='model'>sh.school.attendance</field>
+        <field name='arch' type='xml'>
+            <tree multi_edit="1">
+                <field name="student_id"/>
+                <field name="lesson_id" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="teacher_id" optional="hide" />
+                <field name="student_attendance" force_save='1' decoration-success="student_attendance == 'present'" decoration-danger="student_attendance == 'absent'" class="fw-bold"/>
+                <button name="present_button" string="Present" type="object" class="oe_highlight" invisible="1" />
+                <button name="absent_button" string="Absent" type="object" class="oe_highlight" invisible="1" />
+                <field name="sh_is_button_click" column_invisible="1"/>
+                <field name="class_lesson_line_id" column_invisible="1"/>
+            </tree>
+             
+        </field>
+    </record>
+
+
+    <!-- Search -->
+
+    <record id="view_sh_school_attendance_search" model="ir.ui.view">
+        <field name="name">sh.school.attendance.search</field>
+        <field name="model">sh.school.attendance</field>
+        <field name="arch" type="xml">
+            <search string="Student">
+                <field name="student_id" />
+                <field name="lesson_id" />
+                <field name="teacher_id" />
+                <filter name="student_present" string="Present" domain="[('student_attendance', '=', 'present')]" />
+                <filter name="student_absent" string="Absent" domain="[('student_attendance', '=', 'absent')]" />
+
+                <group string="Group By">
+                    <filter string="Student" name="group_by_student" context="{'group_by': 'student_id'}"/>
+                    <filter string="Lesson" name="group_by_lesson" context="{'group_by': 'lesson_id'}"/>
+                    <filter string="Date" name="group_by_date" context="{'group_by': 'start_time'}"/>
+                </group>
+            </search>
+
+        </field>
+    </record>
+
+    <!-- Kanban -->
+
+    <record id="sh_school_attendance_view_kanban" model="ir.ui.view">
+        <field name="name">sh.school.attendance.view.kanban</field>
+        <field name="model">sh.school.attendance</field>
+        <field name="arch" type="xml">
+            <kanban options="{'group_create':false'}" group_create="false">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click ">
+                            <div class="oe_kanban_content">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="rounded-pill">
+                                            <span class="fa fa-user me-2" title="Student" aria-label="Partner"/>
+                                            <field name="student_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong>
+                                            <span class="rounded-pill">
+                                                <field name="student_attendance" widget="label_selection" options="{'classes': {'absent': 'danger', 'present': 'success'}}" />
+                                            </span>
+                                        </strong>
+                                    </div>
+                                    <span>
+                                        <field name="lesson_id" />
+                                    </span>
+                                </div>
+                                <div class="o_row">
+                                    <span class="fa fa-clock-o me-2" title="Dates"/>
+                                    <field name="start_time" />
+                                    <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" />
+                                    <field name="end_time" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- calendar -->
+
+    <record id="sh_school_attendance_view_calendar" model="ir.ui.view">
+        <field name="name">sh.school.attendance.view.calendar</field>
+        <field name="model">sh.school.attendance</field>
+        <field name="arch" type="xml">
+            <calendar date_start="start_time" color="student_id">
+                <field name="lesson_id" />
+            </calendar>
+        </field>
+    </record>
+
+    <!--Action-->
+
+    <record model='ir.actions.act_window' id='sh_school_attendance_action'>
+        <field name="context">{'search_default_group_by_lesson':1}</field>
+        <field name='name'>Attendance</field>
+        <field name='res_model'>sh.school.attendance</field> 
+        <field name="domain">[('class_lesson_line_id.state', '=', 'fulfilled')]</field>
+        <field name='view_mode'>kanban,calendar,tree,form,search</field>
+        <field name="type">ir.actions.act_window</field>
+    </record>
+
+    
+
+</odoo>

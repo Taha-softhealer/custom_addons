@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sh_purchase_quick_search.access_sh_purchase_order_line,access_sh_purchase_order_line,sh_purchase_quick_search.model_sh_purchase_order_line,base.group_user,1,1,1,1

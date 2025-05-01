@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_sh_class" model="ir.actions.report">
+        <field name="name">Student Attendance Report</field>
+        <field name="model">sh.school.attendance</field>
+        <field name="report_type">qweb-pdf</field>
+         <field name="report_name">sh_music_school.report_sh_class_report</field>  
+        <field name="report_file">sh_music_school.report_sh_class_report</field>
+        <field name="print_report_name">'Student Attendance Report Of Lesson - %s' % (object.lesson_id.name)</field>
+        <field name="binding_model_id" ref="model_sh_school_attendance"/> 
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

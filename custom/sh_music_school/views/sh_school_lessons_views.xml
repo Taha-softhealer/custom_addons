@@ -1,0 +1,168 @@
+<odoo>
+
+    <!-- Form view -->
+
+    <record id='sh__school_lessons_form_view' model='ir.ui.view'>
+        <field name='name'>sh.school.lessons.form.view</field>
+        <field name='model'>sh.school.lessons</field>
+        <field name='arch' type='xml'>
+
+            <form string="lessons">
+
+                <sheet>
+
+                    <div name="button_box" class="oe_button_box">
+
+                        <button name="action_attendance_count" class="oe_stat_button" icon="fa-address-card-o" type="object" modifiers="{&quot;invisible&quot;: [&quot;|&quot;, [&quot;id&quot;, &quot;=&quot;, false], [&quot;related_contacts_count&quot;, &quot;=&quot;, 0]]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="attendance_count" modifiers="{'readonly': true}"/>
+                                </span>
+                                <span class="o_stat_text">Attendance</span>
+                            </div>
+                        </button>
+
+                        <button name="action_class_lessons" class="oe_stat_button" icon="fa-book" type="object" modifiers="{&quot;invisible&quot;: [&quot;|&quot;, [&quot;id&quot;, &quot;=&quot;, false], [&quot;related_contacts_count&quot;, &quot;=&quot;, 0]]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="lesson_line_count" modifiers="{'readonly': true}"/>
+                                </span>
+                                <span class="o_stat_text">Lessons</span>
+                            </div>
+                        </button>
+
+                    </div>
+
+
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field class="text-break" required="1" name="name" default_focus="1" placeholder="e.g. Drum Training"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="student_ids" widget="many2many_tags" options="{'no_create': True}" required="1"/>
+                            <field name="sh_lasson_duration" required="1"/>
+                            <field name="sh_available_space" />
+                           
+                        </group>
+                        <group>
+                            
+                            <field name="teacher_id" required="1" />
+                            <field name="service_id" options="{'no_create': True}" required="1"/>
+                            <field name="instrument_id" required="1"/>
+                           
+                          
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree View-->
+
+    <record id='sh_school_lessons_tree_view' model='ir.ui.view'>
+        <field name='name'>sh.school.lessons.tree.view</field>
+        <field name='model'>sh.school.lessons</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name="name" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="teacher_id" />
+                <field name="student_ids" widget="many2many_tags"/>
+                <field name="instrument_id" optional="hide"/>
+                <field name="service_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Kanban -->
+
+    <record id="sh_school_lessons_view_kanban" model="ir.ui.view">
+        <field name="name">sh.school.lessons.view.kanban</field>
+        <field name="model">sh.school.lessons</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row mb4">
+                                    <div class="col-6">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <strong>  Lessons: <field name="lesson_line_count"/>
+                                        </strong>
+
+                                    </div>
+                                    <div class="o_row">
+                                        <span class="fa fa-clock-o me-2" title="Dates" />
+                                        <field name="start_time" />
+                                        <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" />
+                                        <field name="end_time" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Calaendar -->
+
+    <record id="sh_school_lessons_view_calendar" model="ir.ui.view">
+        <field name="name">sh.school.lessons.view.calendar</field>
+        <field name="model">sh.school.lessons</field>
+        <field name="arch" type="xml">
+            <calendar string="About Lessons" mode="month" color="teacher_id" date_start="start_time" date_stop="end_time">
+                <field name="name" />
+                <field name="start_time" />
+                <field name="end_time" />
+                <field name="teacher_id" avatar_field="avatar_128" options="{'block': True, 'icon': 'fa fa-users'}" filters="1" />
+            </calendar>
+
+        </field>
+    </record>
+
+    <!-- Search -->
+
+    <record id="sh_school_lessons_view_search" model="ir.ui.view">
+        <field name="name">sh.school.lessons.view.search</field>
+        <field name="model">sh.school.lessons</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='name'/>
+                <field name="student_ids" />
+                <field name="teacher_id" />
+                <field name="instrument_id"  />
+                <field name="service_id" />
+                <group string="Group By">
+                    <filter string="Student" name="by_student_ids" context="{'group_by':'student_ids'}"/>
+                    <filter string="Teacher" name="by_teacher_id" context="{'group_by':'teacher_id'}"/>
+                    <filter string="Instrument" name="by_instrument_id" context="{'group_by':'instrument_id'}"/>
+                    <filter string="Service" name="by_service_id" context="{'group_by':'service_id'}"/>
+                   
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!--Action-->
+
+    <record model='ir.actions.act_window' id='sh_school_lessons_action'>
+        <field name='name'>Lessons</field>
+        <field name='res_model'>sh.school.lessons</field>
+        <field name='view_mode'>kanban,calendar,tree,form</field>
+        <field name="type">ir.actions.act_window</field>
+    </record>
+
+
+</odoo>

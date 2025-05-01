@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_sh_class_report">
+        <t t-call="web.html_container">
+            <div class="page">
+                <style>
+                    .table-bordered {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                    }
+                    .table-bordered th, .table-bordered td {
+                        border: 1px solid black;
+                        padding: 8px;
+                    }
+                </style>
+                    <h2 style="text-align:center">Attendance Report</h2>
+                   
+                    <table class="table table-bordered center" style="margin: auto;">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">Lesson</th>
+                                <th style="text-align:center;">Start Time</th>
+                                <th style="text-align:center;">End Time</th>
+                                <th style="text-align:center;">Student</th>
+                                <th style="text-align:center;">Teacher</th>
+                                <th style="text-align:center;">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                   
+                                <tr t-foreach="docs" t-as="attendance">
+                                    <t t-if="attendance.class_lesson_line_id.state == 'fulfilled'">
+                                        <td style="text-align:center;"><span t-field="attendance.lesson_id.name" /></td>
+                                        <td style="text-align:center;"><span t-field="attendance.start_time" /></td>
+                                        <td style="text-align:center;"><span t-field="attendance.end_time" /></td>
+                                        <td style="text-align:center;"><span t-field="attendance.student_id.name" /></td>
+                                        <td style="text-align:center;"><span t-field="attendance.teacher_id.name" /></td>
+                                        <td style="text-align:center;"><span t-field="attendance.student_attendance" /></td>
+                                    </t>
+                                </tr>
+
+                        </tbody>
+                    </table>
+
+
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,212 @@
+<odoo>
+
+    <!-- Form view -->
+
+    <record id='sh__school_classes_form_view' model='ir.ui.view'>
+        <field name='name'>sh.school.classes.form.view</field>
+        <field name='model'>sh.school.classes</field>
+        <field name='arch' type='xml'>
+            <form string="Students">
+
+                <header>
+                    <button string="Start" name="action_state_started" type="object" invisible="state != 'draft'" class="oe_stat_button" groups="sh_music_school.group_teacher" />
+                    <button string="Complete" name="action_state_completed" type="object" invisible="state != 'running' or is_all_lesson_completed == False " class="oe_stat_button" groups="sh_music_school.group_teacher" />
+                    <button string="Reset to draft" name="action_state_reset_to_draft" type="object" invisible="state in ['draft','cancelled','completed'] " class="oe_stat_button" groups="sh_music_school.group_teacher"/>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Cancelled" name="action_state_cancelled" type="object" invisible="state in ['running','completed','cancelled'] " class="oe_stat_button" groups="sh_music_school.group_teacher" />
+                    <button name="create_invoices" groups="sh_music_school.group_school_admin" type="object" class="oe_highlight" id="create_invoice" string="Create Invoice" data-hotkey="w" invisible="state in ['draft','cancelled'] or is_invoice_generated == True "  />
+
+                </header>
+
+                <sheet>
+
+                    <div name="button_box" class="oe_button_box">
+
+                        <button name="action_view_invoice" class="oe_stat_button" groups="sh_music_school.group_school_admin" icon="fa-pencil-square-o" type="object" modifiers="{&quot;invisible&quot;: [&quot;|&quot;, [&quot;id&quot;, &quot;=&quot;, false], [&quot;related_contacts_count&quot;, &quot;=&quot;, 0]]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="invoice_count" modifiers="{&quot;readonly&quot;: true}"/>
+                                </span>
+                                <span class="o_stat_text">Invoices</span>
+                            </div>
+                        </button>
+
+                    </div>
+
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field class="text-break" name="name" default_focus="1" required="1" placeholder="e.g. Shreeji"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <label for="class_from" string="Class"/>
+                            <div class="o_row">
+                                <field name="class_from" readonly="state in ['running','completed']" required="1" widget="daterange" nolabel="1" class="oe_inline" options="{'related_end_date': 'class_to'}"/>
+                                <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                <field name="class_to" readonly="state in ['running','completed']" widget="daterange" nolabel="1" class="oe_inline" options="{'related_start_date': 'class_from'}"/>
+                            </div>
+                            <field name="lasson_duration" widget="float_time" readonly="state in ['draft','running','completed']" force_save="1"/>
+                            <field name="teacher_id" required="1" readonly="state in ['draft','running','completed']" force_save="1" />
+                            <field name="lesson_id" required="1" readonly="state in ['running','completed']" options="{'no_create': True}" />
+                            <field name="repeats" readonly="state in ['running','completed']" />
+                        </group>
+                        <group>
+                            <field name="service_id" options="{'no_create': True}" required="1" readonly="state in ['draft','running','completed']" force_save="1"/>
+                            <field name="location" readonly="state in ['running','completed']" force_save="1"/>
+                            <field name="available_space" required="1" readonly="state in ['draft','running','completed']" force_save="1"/>
+                            <field name="student_ids" readonly="state in ['running','completed']" required="1" widget="many2many_tags" options="{'no_create': True}" force_save="1"/>
+                            <field name="sh_lesson_lines_count" invisible="1"/>
+                            <field name="is_invoice_generated" invisible="1"/>
+                            <field name="is_all_lesson_completed" invisible="1" />
+                            <field name="active" invisible="1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <group invisible='repeats != "weekly"'>
+                                <group>
+                                    <field name="mon" readonly="state in ['running','completed']"/>
+                                    <field name="tue" readonly="state in ['running','completed']"/>
+                                    <field name="wed" readonly="state in ['running','completed']"/>
+                                    <field name="thu" readonly="state in ['running','completed']"/>
+                                </group>
+                                <group>
+                                    <field name="fri" readonly="state in ['running','completed']"/>
+                                    <field name="sat" readonly="state in ['running','completed']"/>
+                                    <field name="sun" readonly="state in ['running','completed']"/>
+                                </group>
+                            </group>
+                        </group>
+                    </group>
+
+
+                    <notebook>
+                        <page name="class_lessons" string="Lessons">
+                            <field name="class_lesson_line" readonly="1" force_save="1">
+                                <tree>
+                                    <field name="lesson_id"/>
+                                    <field name="start_time"/>
+                                    <field name="end_time"/>
+                                    <field name="state" /> 
+                                    <button name="student_btn" string="ADD STUDENT" type="object" class="oe_highlight" invisible="1"/>                               
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree View-->
+
+    <record id='sh_school_classes_tree_view' model='ir.ui.view'>
+        <field name='name'>sh.school.classes.tree.view</field>
+        <field name='model'>sh.school.classes</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name='name'/>
+                <field name="class_from" />
+                <field name="class_to" />
+                <field name="lasson_duration" optional="hide"/>
+                <field name="teacher_id" />
+                <field name="student_ids" widget="many2many_tags"/>
+                <field name="location" optional="hide"/>
+                <field name="lesson_id"  />
+                <field name="repeats" />
+                <field name="available_space" optional="hide"/>               
+                <field name="service_id" optional="hide" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Kanban -->
+
+    <record id="sh_school_classes_view_kanban" model="ir.ui.view">
+        <field name="name">sh.school.classes.view.kanban</field>
+        <field name="model">sh.school.classes</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-6">
+                                    <strong>
+                                    
+                                         <span style="color:rgb(0,177,177)"> NAME : <field name="name"/> </span>
+                                        
+                                    </strong>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <b>
+                                      Lesson: <field name="sh_lesson_lines_count"  />
+                                    </b>
+                                </div>
+                            </div>
+                            <div>
+                                
+                                <b>Start Date :</b> <field name="class_from"/>
+                            </div>
+                            <div>
+                                <b>End Date :</b> <field name="class_to"/>
+                            </div>
+                            <div>
+                                <b>Teacher :</b> <field name="teacher_id" />
+                            </div>
+                           
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- Search -->
+
+    <record id="sh_school_classes_view_search" model="ir.ui.view">
+        <field name="name">sh.school.classes.view.search</field>
+        <field name="model">sh.school.classes</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='name'/>
+                <field name="teacher_id" />
+                <field name="location" />
+                <field name="lesson_id"  />
+                <field name="student_ids" />
+                <field name="repeats" />
+                <field name="service_id" />
+                <group string="Group By">
+                    <filter string="Lesson" name="by_lesson_ids" context="{'group_by':'lesson_id'}"/>
+                    <filter string="Teacher" name="by_teacher_id" context="{'group_by':'teacher_id'}"/>
+                    <filter string="Service" name="by_service_id" context="{'group_by':'service_id'}"/>
+                    <filter string="Student" name="by_student_ids" context="{'group_by':'student_ids'}"/>
+                    <filter string="Repeats" name="by_repeats" context="{'group_by':'repeats'}"/> 
+                    <filter string="Achived" name="active" domain="[('active','=',False)]"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!--Action-->
+
+    <record model='ir.actions.act_window' id='sh_school_classes_action'>
+        <field name='name'>Classes</field>
+        <field name='res_model'>sh.school.classes</field>
+        <field name='view_mode'>kanban,tree,form</field>
+        <field name="type">ir.actions.act_window</field>
+        
+    </record>
+
+
+</odoo>
